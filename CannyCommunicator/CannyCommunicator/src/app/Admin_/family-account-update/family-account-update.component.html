@@ -1,0 +1,1666 @@
+<div class="container-fluid bg-light">
+  <h2 class="h2"> <img class="float-right imageclassname"  src="assets/Images/LogoGirl.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/Logo.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/LogoBoy.jpg" width="200px" height="90px"/> 
+    <a class="nav-link logotext" routerLink="/AdminHome">Canny Communicator</a></h2>
+  <h6 class="h6 indent">Admin Portal</h6>
+  <hr />
+
+  <!--Nav-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/FamilyAccountList">Family Accounts <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Employees
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="/EmployeeList">Manage Employees</a>
+              <a class="dropdown-item" routerLink="/AllocateEmployeeDuty">Manage employee Duties</a>
+            </div>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/ApplicationsList" >
+                Applications
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/MealPlan"> Meal Plans</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/SchoolFeePackage"> School Fees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/Document">Documentation</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Administration
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" routerLink="/EmployeeType">Manage Employee Types</a>
+                <a class="dropdown-item" routerLink="/Duties">Manage Duties</a>
+                <a class="dropdown-item" routerLink="/UserType">Manage User Types</a>
+                <a class="dropdown-item" routerLink="/Class">Manage Classes</a>
+                <a class="dropdown-item" routerLink="/ClassGrade">Manage Class Grades</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTypes">Manage Progress Report Types</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTestCategories">Manage Progress Report Test Categories</a>
+                <a class="dropdown-item" routerLink="/ExtraMural">Manage Extra-Murals</a>
+                <a class="dropdown-item" routerLink="/ExtraMuralCompany">Manage Extra-Mural Companies</a>
+                <a class="dropdown-item" routerLink="/FoodItem">Manage Food Items</a>
+              </div>
+            </li>
+        </ul>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown" class="float-right" style="padding-right: 75px;">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="nav-item nav-link float-right" routerLink="/ChangePassword">Change password</a>
+              <br>
+              <br>
+            </div>
+          </li>
+        </ul>
+      </div> 
+    </nav>
+      <!-- End of nav bar -->
+<br>
+       
+<div>
+    <h1>UPDATE FAMILY ACCOUNT</h1>
+</div>
+<form #ApplyRegisterForm = "ngForm" (ngSubmit)="SubmitThisForm()">
+  <div class="container">
+      <h3 class="text-center"> <img src="https://img.icons8.com/dusk/64/000000/children.png"/><br><strong> Details Concerning Child</strong>
+        <br>
+        </h3>
+      <br>
+      <div class="row">
+          
+  
+  <div class="col">
+      <br>
+      <div class="input-group ">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Date of Birth</span>
+            </div>
+            <input 
+            type="date"
+            class="form-control"
+            name="dp" 
+            [(ngModel)]="detailsForUpdate.newChild.DateOfBirth"
+            id="DOBChild"
+            #DOBChild="ngModel"
+            (change)="ValidateDate()"
+             >
+          </div>
+          <div *ngIf="DOBChild.touched && !DOBChild.valid" class="text-danger text-center">
+            <div *ngIf="DOBChild.errors.required">Please select a date value</div>
+            <div *ngIf="DOBChild.errors.datelimit">This date is too far back, this school only caters to pre school children.</div>
+          </div>
+      </div>
+  </div>
+  <br>
+  <div class="row">
+      <div class="col">
+  
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Name & Surname</span>
+              </div>
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="First Name"
+              name="ChildName"
+              #ChildName="ngModel"
+              required
+              minlength="3"
+              maxlength="20"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.newChild.NameUsed"
+              >
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Last Name"
+              name="ChildSurname"
+              #ChildSurname="ngModel"
+              required
+              minlength="3"
+              maxlength="20"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.newChild.Surname">
+            </div>
+            <div *ngIf = "ChildName.touched && !ChildName.valid" class="text-danger text-center">
+              <div *ngIf="ChildName.errors.required">This field is required, please enter a value</div>
+              <div *ngIf="ChildName.errors.minlength">An name should be at least {{ChildName.errors.minlength.requiredLength}} characters</div>
+              <div *ngIf="ChildName.errors.maxlength">The entered name is too long.</div>
+              <div *ngIf="ChildName.errors.pattern">Invalid name. Please make use of only upper and lower case letters.</div>
+            </div>
+            <div *ngIf = "ChildSurname.touched && !ChildSurname.valid" class="text-danger">
+              <div *ngIf="ChildSurname.errors.required">This field is required, please enter a value</div>
+              <div *ngIf="ChildSurname.errors.minlength">A surname should be at least {{ChildSurname.errors.minlength.requiredLength}} characters</div>
+              <div *ngIf="ChildSurname.errors.maxlength">The entered surname is too long.</div>
+              <div *ngIf="ChildSurname.errors.pattern">Invalid surname. Please make use of only upper and lower case letters.</div>
+            </div>
+      </div>
+          </div>
+  
+  <div class="row">
+          <div class="col">
+      
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Residential Address</span>
+                  </div>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Residential Address"
+                    name="ChildAddress"
+                    #ChildAddress="ngModel"
+                    required
+                    minlength="5"
+                    maxlength="150"
+                    pattern="^[A-Za-z0-9, ]*$"
+                    [(ngModel)]="detailsForUpdate.newChild.ResidentialAddress">
+                  </div>
+                      <div *ngIf = "ChildAddress.touched && !ChildAddress.valid" class="text-danger text-center">
+                        <div *ngIf="ChildAddress.errors.required">This field is required, please enter a value</div>
+                        <div *ngIf="ChildAddress.errors.minlength">An address should be at least {{ChildAddress.errors.minlength.requiredLength}} characters</div>
+                        <div *ngIf="ChildAddress.errors.maxlength">The entered address is too long.</div>
+                        <div *ngIf="ChildAddress.errors.pattern">Invalid address. Please make use of only numbers and upper and lower case letters.</div>
+                      </div>
+      
+  </div>
+  </div> 
+  
+  <div class="row">
+      <div class="col">
+  
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Special Requests/Habits/Problems</span>
+              </div>
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Special requestss/ habits/ problems"
+              name="SRHP"
+              #SRHP="ngModel"
+              minlength="5"
+              maxlength="200"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.newChild.SpecialRequests"
+              >
+            </div>
+                <div *ngIf = "SRHP.touched && !SRHP.valid" class="text-danger text-center">
+                  <div *ngIf="SRHP.errors.required">This field is required, please enter a value</div>
+                  <div *ngIf="SRHP.errors.minlength">This field should be at least {{SRHP.errors.minlength.requiredLength}} characters</div>
+                  <div *ngIf="SRHP.errors.maxlength">The entered information is too long.</div>
+                  <div *ngIf="SRHP.errors.pattern">Invalid information. Please make use of only upper and lower case letters.</div>
+                </div>
+  
+  </div>
+  </div> 
+  
+  </div>
+  <div class="container">
+    <h3 class="text-center"> 
+      <img src="https://img.icons8.com/dusk/64/000000/health-book.png"/><br><strong> Health Questionnaire</strong>
+   </h3>
+  
+  <div class="row">
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">General Health Condition of Child</span>
+            </div>
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="General health condition"
+              name="GeneralHealthCondition"
+              #GeneralHealthCondition="ngModel"
+              required
+              minlength="1"
+              maxlength="80"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.newChild.GeneralHealthCondition">
+            </div>
+                <div *ngIf = "GeneralHealthCondition.touched && !GeneralHealthCondition.valid" class="text-danger text-center">
+                  <div *ngIf="GeneralHealthCondition.errors.required">This field is required, please enter a value</div>
+                  <div *ngIf="GeneralHealthCondition.errors.minlength">this field should be at least {{GeneralHealthCondition.errors.minlength.requiredLength}} characters</div>
+                  <div *ngIf="GeneralHealthCondition.errors.maxlength">The entered information is too long.</div>
+                  <div *ngIf="GeneralHealthCondition.errors.pattern">Invalid information. Please make use of only upper and lower case letters.</div>
+                </div>
+  </div>
+  
+  </div>
+  <div class="row">
+    <div class="col">
+      <p> Select the allergies your child has.</p>
+      <div class="form-check" *ngFor="let allergy of RegPageInfo.Allergies; let allergyIndex=index;">
+        <label class="form-check-label">
+          <input type="checkbox" id={{allergy.AllergyID}} class="form-check-input" [checked]="allergyCheck[allergyIndex]" (change)="addRemoveAllergy(allergy)" >{{allergy.Allergyname}}
+        </label>
+      </div>
+    </div>
+    <div class="col">
+      <p> Select the Infectious diseases your child has had.</p>
+      <div class="form-check" *ngFor="let InfectiousDisease of RegPageInfo.InfectiousDiseases; let diseaseIndex = index">
+        <label class="form-check-label">
+          <input type="checkbox" id={{InfectiousDisease.InfectiousDiseaseID}} [checked]="diseaseCheck[diseaseIndex]" class="form-check-input" (change)="addRemoveDisease(InfectiousDisease)">{{InfectiousDisease.DiseaseName}}
+        </label>
+      </div>
+    </div>
+    <div class="col">
+      <p> Select the what vaccines your child has recieved.</p>
+      <div class="form-check" *ngFor = "let Vaccine of RegPageInfo.Vaccines; let vaccineIndex = index">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" [checked]="vaccineCheck[vaccineIndex]" (change)="addRemoveVaccines(Vaccine)">{{Vaccine.VaccineName}}
+        </label>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+  <div class="col">
+    <div class="input-group mb-3">
+      <div class="form-group" style="width: 550px;">
+        <label for="exampleFormControlTextarea6" class="text-center">Any other important information we should know?</label>
+        <textarea 
+              type="text" 
+              class="form-control" 
+              name="OtherImportantInfo"
+              #OtherImportantInfo="ngModel"
+              minlength="1"
+              maxlength="225"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.newChild.OtherImportantInfo"
+              rows="4"></textarea>
+            </div>
+                <div *ngIf = "OtherImportantInfo.touched && !OtherImportantInfo.valid" class="text-danger">
+                  <div *ngIf="OtherImportantInfo.errors.required">This field is required, please enter a value</div>
+                  <div *ngIf="OtherImportantInfo.errors.minlength">this field should be at least {{OtherImportantInfo.errors.minlength.requiredLength}} characters</div>
+                  <div *ngIf="OtherImportantInfo.errors.maxlength">The entered information is too long.</div>
+                  <div *ngIf="OtherImportantInfo.errors.pattern">Invalid information. Please make use of only upper and lower case letters.</div>
+                </div>
+      </div>
+      
+    </div>
+      <div class="col">
+        <p> Has your child suffered from any of the following?</p>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" value="" [checked]="detailsForUpdate.newChild.HasAsthma" (change)="detailsForUpdate.newChild.HasAsthma = !detailsForUpdate.newChild.HasAsthma">Asthma
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" value="" [checked]="detailsForUpdate.newChild.HadRheumaticFever" (change)="detailsForUpdate.newChild.HadRheumaticFever = !detailsForUpdate.newChild.HadRheumaticFever">Rheumatic Fever
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" value="" [checked]="detailsForUpdate.newChild.HasHeartTrouble" (change)="detailsForUpdate.newChild.HasHeartTrouble = !detailsForUpdate.newChild.HasHeartTrouble">Heart Trouble
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" value="" [checked] = "detailsForUpdate.newChild.HasEpilepsy" (change)="detailsForUpdate.newChild.HasEpilepsy = !detailsForUpdate.newChild.HasEpilepsy"> Epileptic Fits
+          </label>
+        </div>
+    
+    </div>
+    
+  </div>
+  
+  <br>
+  <h4 class="text-center">Details Concerning Doctor </h4>
+  <div class="row">
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Name and surname</span>
+            </div>
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="First Name"
+              name="DoctorFirstName"
+              #DoctorFirstName="ngModel"
+              required
+              minlength="3"
+              maxlength="25"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.newChild.DoctorName">
+              
+            <!-- <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Last Name"
+              name="DoctorLastName"
+              #DoctorLastName="ngModel"
+              required
+              minlength="3"
+              maxlength="25"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="DoctorLastNameValue"> -->
+              
+          </div>
+          <div *ngIf = "DoctorFirstName.touched && !DoctorFirstName.valid" class="text-danger text-center">
+            <div *ngIf="DoctorFirstName.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="DoctorFirstName.errors.minlength">A name should be at least {{DoctorFirstName.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="DoctorFirstName.errors.maxlength">The entered name is too long.</div>
+            <div *ngIf="DoctorFirstName.errors.pattern">Invalid name. Please make use of only upper and lower case letters.</div>
+          </div>
+          <!-- <div *ngIf = "DoctorLastName.touched && !DoctorLastName.valid" class="text-danger text-center">
+            <div *ngIf="DoctorLastName.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="DoctorLastName.errors.minlength">A surname should be at least {{DoctorLastName.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="DoctorLastName.errors.maxlength">The entered surname is too long.</div>
+            <div *ngIf="DoctorLastName.errors.pattern">Invalid surname. Please make use of only upper and lower case letters.</div>
+          </div> -->
+    </div>
+  </div>
+    
+  
+  <div class="row">
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Address</span>
+            </div>
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Address"
+              name="DoctorAddress"
+              #DoctorAddress="ngModel"
+              required
+              minlength="5"
+              maxlength="100"
+              pattern="^[A-Za-z0-9, ]*$"
+              [(ngModel)]="detailsForUpdate.newChild.DoctorAddress">
+            </div>
+                <div *ngIf = "DoctorAddress.touched && !DoctorAddress.valid" class="text-danger text-center">
+                  <div *ngIf="DoctorAddress.errors.required">This field is required, please enter a value</div>
+                  <div *ngIf="DoctorAddress.errors.minlength">An address should be at least {{DoctorAddress.errors.minlength.requiredLength}} characters</div>
+                  <div *ngIf="DoctorAddress.errors.maxlength">The entered address is too long.</div>
+                  <div *ngIf="DoctorAddress.errors.pattern">Invalid address. Please make use of only numbers and upper and lower case letters.</div>
+                </div>
+  </div>
+  </div>
+  
+  <div class="row">
+  <div class="col">
+  
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Cell Number</span>
+        </div>
+        <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Cell number"
+              name="CellNumber"
+              #CellNumber="ngModel"
+              required
+              minlength="10"
+              maxlength="10"
+              pattern="^[0-9]*$"
+              [(ngModel)]="detailsForUpdate.newChild.DoctorContactNumber">
+            </div>
+                <div *ngIf = "CellNumber.touched && !CellNumber.valid" class="text-danger text-center">
+                  <div *ngIf="CellNumber.errors.required">This field is required, please enter a value</div>
+                  <div *ngIf="CellNumber.errors.minlength">A cell number should be at least {{CellNumber.errors.minlength.requiredLength}} characters</div>
+                  <div *ngIf="CellNumber.errors.maxlength">The entered cell number is too long.</div>
+                  <div *ngIf="CellNumber.errors.pattern">Invalid cell number. Please make use of only numbers.</div>
+                </div>
+    
+    </div>
+  </div>
+  <h4 class="text-center">Details Concerning Medical Aid</h4>
+  
+    
+  
+  <div class="row">
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Name of Medical Aid</span>
+            </div>
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Name"
+            name="MedicalAidName"
+            #MedicalAidName="ngModel"
+            minlength="3"
+            maxlength="25"
+            pattern="^[a-zA-Z ]+$"
+            [(ngModel)]="detailsForUpdate.medAid.MedicalAidName"
+            [disabled] = "noMedAid"
+            >
+          </div>
+              <div *ngIf = "MedicalAidName.touched && !MedicalAidName.valid" class="text-danger">
+                <div *ngIf="MedicalAidName.errors.required">This field is required, please enter a value</div>
+                <div *ngIf="MedicalAidName.errors.minlength">A medical aid name should be at least {{MedicalAidName.errors.minlength.requiredLength}} characters</div>
+                <div *ngIf="MedicalAidName.errors.maxlength">The entered medical aid name is too long.</div>
+                <div *ngIf="MedicalAidName.errors.pattern">Invalid medical aid name. Please make use of only upper and lower case letters.</div>
+              </div>
+  </div>
+  
+  
+  <div class="row">
+  <div class="col">
+  
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Medical Aid Number</span>
+        </div>
+        <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Number"
+        name="MedicalAidNumber"
+        #MedicalAidNumber="ngModel"
+        minlength="6"
+        maxlength="25"
+        pattern="^[0-9]*$"
+        [(ngModel)]="detailsForUpdate.medAid.MedicalAidNumber"
+        [disabled]="noMedAid"
+        >
+      </div>
+          <div *ngIf = "MedicalAidNumber.touched && !MedicalAidNumber.valid" class="text-danger text-right">
+            <div *ngIf="MedicalAidNumber.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="MedicalAidNumber.errors.minlength">A medical aid number should be at least {{MedicalAidNumber.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="MedicalAidNumber.errors.maxlength">The entered medical aid number is too long.</div>
+            <div *ngIf="MedicalAidNumber.errors.pattern">Invalid medical aid number. Please make use of only numbers.</div>
+          </div>
+        </div>
+        <br />
+        <br />
+        <div class="custom-control custom-checkbox text-center">
+          <input type="checkbox" class="custom-control-input" [checked]="noMedAid" id="customCheck" name="example1" [(ngModel)]="noMedAid" >
+          <label class="custom-control-label" for="customCheck">I don't have medical aid.</label>
+        </div>
+  </div>
+  </div>
+  
+  </div>
+  <br>
+  <div class="container">
+      <h3 class="text-center"><img src="https://img.icons8.com/officel/80/000000/family--v2.png"/><br><strong> Details Concerning Parents</strong></h3>
+      <h4 class="text-center">Parent 1</h4>
+  <div class="row">
+      <div class="col">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Name & Surname</span>
+              </div>
+              <input
+              type="text" 
+              class="form-control" 
+              placeholder="First Name"
+              name="MotherName"
+              #MotherName="ngModel"
+              required
+              minlength="3"
+              maxlength="20"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.Parent1.NameUsed"
+              >
+              
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Last Name"
+              name="MotherSurname"
+              #MotherSurname="ngModel"
+              required
+              minlength="3"
+              maxlength="20"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.Parent1.Surname"
+              >
+              
+            </div>
+            <div *ngIf = "MotherName.touched && !MotherName.valid" class="text-danger text-center">
+              <div *ngIf="MotherName.errors.required">This field is required, please enter a value</div>
+              <div *ngIf="MotherName.errors.minlength">A name should be at least {{MotherName.errors.minlength.requiredLength}} characters</div>
+              <div *ngIf="MotherName.errors.maxlength">The entered name is too long.</div>
+              <div *ngIf="MotherName.errors.pattern">Invalid name. Please make use of only upper and lowercase letters.</div>
+            </div>
+            <div *ngIf = "MotherSurname.touched && !MotherSurname.valid" class="text-danger text-center">
+              <div *ngIf="MotherSurname.errors.required">This field is required, please enter a value</div>
+              <div *ngIf="MotherSurname.errors.minlength">A surname should be at least {{MotherSurname.errors.minlength.requiredLength}} characters</div>
+              <div *ngIf="MotherSurname.errors.maxlength">The entered surname is too long.</div>
+              <div *ngIf="MotherSurname.errors.pattern">Invalid surname. Please make use of only upper and lower case letters.</div>
+            </div>
+      </div>
+  </div>
+      
+  <div class="row">
+          <div class="col">
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">ID Number</span>
+                  </div>
+                  <input 
+                  type="text" 
+                  class="form-control" 
+                  placeholder="ID Number"
+                  name="MotherID"
+                  #MotherID="ngModel"
+                  required
+                  minlength="13"
+                  maxlength="13"
+                  pattern="^[0-9]*$"
+                  [(ngModel)]="detailsForUpdate.Parent1.IDNumber"
+                  >
+                </div>
+                    <div *ngIf = "MotherID.touched && !MotherID.valid" class="text-danger text-center">
+                      <div *ngIf="MotherID.errors.required">This field is required, please enter a value</div>
+                      <div *ngIf="MotherID.errors.minlength">An ID should be at least {{MotherID.errors.minlength.requiredLength}} characters</div>
+                      <div *ngIf="MotherID.errors.maxlength">The entered ID is too long.</div>
+                      <div *ngIf="MotherID.errors.pattern">Invalid ID. Please make use of only numbers.</div>
+                    </div>
+  </div>
+  <div class="col">
+      <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Occupation</span>
+          </div>
+          <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Occupation"
+          name="MotherOccupation"
+          #MotherOccupation="ngModel"
+          required
+          minlength="3"
+          maxlength="20"
+          pattern="^[a-zA-Z ]+$"
+          [(ngModel)]="detailsForUpdate.Parent1.Occupation"
+          >
+        </div>
+            <div *ngIf = "MotherOccupation.touched && !MotherOccupation.valid" class="text-danger text-center">
+              <div *ngIf="MotherOccupation.errors.required">This field is required, please enter a value</div>
+              <div *ngIf="MotherOccupation.errors.minlength">An occupation should be at least {{MotherOccupation.errors.minlength.requiredLength}} characters</div>
+              <div *ngIf="MotherOccupation.errors.maxlength">The entered occupation is too long.</div>
+              <div *ngIf="MotherOccupation.errors.pattern">Invalid occupation. Please make use of only upper and lower case letters.</div>
+            </div>
+  </div>
+  </div> 
+  
+  <div class="row">
+      <div class="col">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Work Address</span>
+              </div>
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Address"
+              name="MotherWA"
+              #MotherWA="ngModel"
+              required
+              minlength="5"
+              maxlength="150"
+              pattern="^[A-Za-z0-9, ]*$"
+              [(ngModel)]="detailsForUpdate.Parent1.WorkAddress"
+              >
+            </div>
+                <div *ngIf = "MotherWA.touched && !MotherWA.valid" class="text-danger text-center">
+                  <div *ngIf="MotherWA.errors.required">This field is required, please enter a value</div>
+                  <div *ngIf="MotherWA.errors.minlength">An address should be at least {{MotherWA.errors.minlength.requiredLength}} characters</div>
+                  <div *ngIf="MotherWA.errors.maxlength">The entered address is too long.</div>
+                  <div *ngIf="MotherWA.errors.pattern">Invalid address. Please make use of only numbers upper and lower case letters.</div>
+                </div>
+  </div>
+  </div>
+  
+  <div class="row">
+      <div class="col">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Telephone Number(W)</span>
+              </div>
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Number"
+              name="MotherWN"
+              #MotherWN="ngModel"
+              minlength="10"
+              maxlength="10"
+              pattern="^[0-9]*$"
+              [(ngModel)]="detailsForUpdate.Parent1.TelephoneNumberWork"
+              >
+            </div>
+                <div *ngIf = "MotherWN.touched && !MotherWN.valid" class="text-danger">
+                  <div *ngIf="MotherWN.errors.required">This field is required, please enter a value</div>
+                  <div *ngIf="MotherWN.errors.minlength">A phone number should be at least {{MotherWN.errors.minlength.requiredLength}} characters</div>
+                  <div *ngIf="MotherWN.errors.maxlength">The entered phone number is too long.</div>
+                  <div *ngIf="MotherWN.errors.pattern">Invalid phone number. Please make use of only numbers.</div>
+                </div>
+  </div>
+  <div class="col">
+  
+  <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Telephone Number(H)</span>
+      </div>
+      <input 
+      type="text" 
+      class="form-control" 
+      placeholder="Number"
+      name="MotherHN"
+      #MotherHN="ngModel"
+      minlength="10"
+      maxlength="10"
+      pattern="^[0-9]*$"
+      [(ngModel)]="detailsForUpdate.Parent1.TelephoneNumberHome"
+      >
+    </div>
+        <div *ngIf = "MotherHN.touched && !MotherHN.valid" class="text-danger text-center">
+          <div *ngIf="MotherHN.errors.required">This field is required, please enter a value</div>
+          <div *ngIf="MotherHN.errors.minlength">A phone number should be at least {{MotherHN.errors.minlength.requiredLength}} characters</div>
+          <div *ngIf="MotherHN.errors.maxlength">The entered phone number is too long.</div>
+          <div *ngIf="MotherHN.errors.pattern">Invalid phone number. Please make use of only numbers.</div>
+        </div>
+  
+  </div>
+  <div class="col">
+  
+      <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Cell Number</span>
+          </div>
+          <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Number"
+          name="MotherCell"
+          #MotherCell="ngModel"
+          required
+          minlength="10"
+          maxlength="10"
+          pattern="^[0-9]*$"
+          [(ngModel)]="detailsForUpdate.Parent1.CellphoneNumber"
+          >
+        </div>
+            <div *ngIf = "MotherCell.touched && !MotherCell.valid" class="text-danger text-right">
+              <div *ngIf="MotherCell.errors.required">This field is required, please enter a value</div>
+              <div *ngIf="MotherCell.errors.minlength">A phone number should be at least {{MotherCell.errors.minlength.requiredLength}} characters</div>
+              <div *ngIf="MotherCell.errors.maxlength">The entered phone number is too long.</div>
+              <div *ngIf="MotherCell.errors.pattern">Invalid phone number. Please make use of only numbers.</div>
+            </div>
+      
+      </div>
+  </div>
+  
+  <div class="row">
+      
+      <div class="col-md-6">
+          <br>
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Email Address</span>
+              </div>
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Email Address"
+              name="MotherEmail"
+              #MotherEmail="ngModel"
+              required
+              minlength="6"
+              maxlength="50"
+              pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              [(ngModel)]="detailsForUpdate.Parent1.EmailAddress"
+              >
+            </div>
+                <div *ngIf = "MotherEmail.touched && !MotherEmail.valid" class="text-danger">
+                  <div *ngIf="MotherEmail.errors.required">This field is required, please enter a value</div>
+                  <div *ngIf="MotherEmail.errors.minlength">An email should be at least {{MotherEmail.errors.minlength.requiredLength}} characters</div>
+                  <div *ngIf="MotherEmail.errors.maxlength">The entered email is too long.</div>
+                  <div *ngIf="MotherEmail.errors.pattern">Invalid email address. Please use the following format: name@provider.com</div>
+                </div>
+  </div>
+  <div class="col">
+    <br>
+    <div class="custom-file">
+      <input 
+      type="file" 
+      class="custom-file-input" 
+      id="customFileLang"
+      name="IDFileMother" 
+      accept="application/pdf"
+      #IDFileMother = "ngModel"
+      [(ngModel)]="IDFileMotherValue"
+      (change)="onFileChangeMother($event)"
+      >
+      <div *ngIf = "IDFileMother.touched && !IDFileMother.valid" class="text-danger">
+        <div *ngIf="IDFileMother.errors.required">This field is required, please enter a value</div>
+        <div *ngIf="IDFileMother.errors.filetype">File type not supported. Please upload a PDF.</div>
+      </div>
+      <label class="custom-file-label" for="customFileLang">Upload your ID</label>
+    </div>
+    </div>
+  <div class="col-md-3 text-right">
+      <div class="d-inline-block">
+  <img  src="https://img.icons8.com/dusk/64/000000/family.png"/>
+  </div>
+  <div class="form-check d-inline-block">
+      <label class="form-check-label" for="exampleCheck1">Primary Parent</label>
+      <input  
+      data-toggle="tooltip" 
+      data-placement="bottom" 
+      title="Primary Parent: arent who receieves all notifications. We will contact this parent first in emergencies etc." 
+      type="checkbox" c
+      lass="form-check" 
+      id="PrimaryParent1"
+      [checked]="detailsForUpdate.Parent1.PrimaryParent"
+      [disabled]="detailsForUpdate.Parent2.PrimaryParent"
+      (change)="detailsForUpdate.Parent1.PrimaryParent = !detailsForUpdate.Parent1.PrimaryParent">
+    </div>
+  </div>
+  
+  </div>
+  <br>
+  <h4 class="text-center">Parent 2</h4>
+  <div class="row">
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Name & Surname</span>
+            </div>
+            <input
+            type="text" 
+            class="form-control" 
+            placeholder="First Name"
+            name="FatherName"
+            #FatherName="ngModel"
+            required
+            minlength="3"
+            maxlength="20"
+            pattern="^[a-zA-Z ]+$"
+            [(ngModel)]="detailsForUpdate.Parent2.NameUsed"
+            >
+            
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Last Name"
+            name="FatherSurname"
+            #FatherSurname="ngModel"
+            required
+            minlength="3"
+            maxlength="20"
+            pattern="^[a-zA-Z ]+$"
+            [(ngModel)]="detailsForUpdate.Parent2.Surname"
+            >
+          </div>
+              <div *ngIf = "FatherSurname.touched && !FatherSurname.valid" class="text-danger text-center">
+                <div *ngIf="FatherSurname.errors.required">This field is required, please enter a value</div>
+                <div *ngIf="FatherSurname.errors.minlength">A surname should be at least {{FatherSurname.errors.minlength.requiredLength}} characters</div>
+                <div *ngIf="FatherSurname.errors.maxlength">The entered surname is too long.</div>
+                <div *ngIf="FatherSurname.errors.pattern">Invalid surname. Please make use of only upper and lower case letters.</div>
+              </div>
+          <div *ngIf = "FatherName.touched && !FatherName.valid" class="text-danger text-center">
+            <div *ngIf="FatherName.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="FatherName.errors.minlength">A name should be at least {{FatherName.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="FatherName.errors.maxlength">The entered name is too long.</div>
+            <div *ngIf="FatherName.errors.pattern">Invalid name. Please make use of only upper and lowercase letters.</div>
+          </div>
+    </div>
+  </div>
+    
+  <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">ID Number</span>
+                </div>
+                <input 
+                type="text" 
+                class="form-control" 
+                placeholder="ID Number"
+                name="FatherID"
+                #FatherID="ngModel"
+                required
+                minlength="13"
+                maxlength="13"
+                pattern="^[0-9]*$"
+                [(ngModel)]="detailsForUpdate.Parent2.IDNumber"
+                >
+              </div>
+                  <div *ngIf = "FatherID.touched && !FatherID.valid" class="text-danger">
+                    <div *ngIf="FatherID.errors.required">This field is required, please enter a value</div>
+                    <div *ngIf="FatherID.errors.minlength">An ID should be at least {{FatherID.errors.minlength.requiredLength}} characters</div>
+                    <div *ngIf="FatherID.errors.maxlength">The entered ID is too long.</div>
+                    <div *ngIf="FatherID.errors.pattern">Invalid ID. Please make use of only numbers.</div>
+                  </div>
+  </div>
+  <div class="col">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Occupation</span>
+        </div>
+        <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Occupation"
+        name="FatherOccupation"
+        #FatherOccupation="ngModel"
+        required
+        minlength="3"
+        maxlength="20"
+        pattern="^[a-zA-Z ]+$"
+        [(ngModel)]="detailsForUpdate.Parent2.Occupation"
+        >
+      </div>
+          <div *ngIf = "FatherOccupation.touched && !FatherOccupation.valid" class="text-danger">
+            <div *ngIf="FatherOccupation.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="FatherOccupation.errors.minlength">An occupation should be at least {{FatherOccupation.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="FatherOccupation.errors.maxlength">The entered occupation is too long.</div>
+            <div *ngIf="FatherOccupation.errors.pattern">Invalid occupation. Please make use of only upper and lower case letters.</div>
+          </div>
+  </div>
+  </div> 
+  
+  <div class="row">
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Work Address</span>
+            </div>
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Address"
+            name="FatherWA"
+            #FatherWA="ngModel"
+            required
+            minlength="5"
+            maxlength="150"
+            pattern="^[A-Za-z0-9, ]*$"
+            [(ngModel)]="detailsForUpdate.Parent2.WorkAddress"
+            >
+          </div>
+              <div *ngIf = "FatherWA.touched && !FatherWA.valid" class="text-danger text-center">
+                <div *ngIf="FatherWA.errors.required">This field is required, please enter a value</div>
+                <div *ngIf="FatherWA.errors.minlength">An address should be at least {{FatherWA.errors.minlength.requiredLength}} characters</div>
+                <div *ngIf="FatherWA.errors.maxlength">The entered address is too long.</div>
+                <div *ngIf="FatherWA.errors.pattern">Invalid address. Please make use of only numbers upper and lower case letters.</div>
+              </div>
+  </div>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Telephone Number(W)</span>
+            </div>
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Number"
+            name="FatherWN"
+            #FatherWN="ngModel"
+            minlength="10"
+            maxlength="10"
+            pattern="^[0-9]*$"
+            [(ngModel)]="detailsForUpdate.Parent2.TelephoneNumberWork"
+            >
+          </div>
+              <div *ngIf = "FatherWN.touched && !FatherWN.valid" class="text-danger">
+                <div *ngIf="FatherWN.errors.required">This field is required, please enter a value</div>
+                <div *ngIf="FatherWN.errors.minlength">A phone number should be at least {{FatherWN.errors.minlength.requiredLength}} characters</div>
+                <div *ngIf="FatherWN.errors.maxlength">The entered phone number is too long.</div>
+                <div *ngIf="FatherWN.errors.pattern">Invalid phone number. Please make use of only numbers.</div>
+              </div>
+  </div>
+  <div class="col">
+  
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Telephone Number(H)</span>
+    </div>
+    <input 
+    type="text" 
+    class="form-control" 
+    placeholder="Number"
+    name="FatherHN"
+    #FatherHN="ngModel"
+    minlength="10"
+    maxlength="10"
+    pattern="^[0-9]*$"
+    [(ngModel)]="detailsForUpdate.Parent2.TelephoneNumberHome"
+    >
+  </div>
+      <div *ngIf = "FatherHN.touched && !FatherHN.valid" class="text-danger">
+        <div *ngIf="FatherHN.errors.required">This field is required, please enter a value</div>
+        <div *ngIf="FatherHN.errors.minlength">A phone number should be at least {{FatherHN.errors.minlength.requiredLength}} characters</div>
+        <div *ngIf="FatherHN.errors.maxlength">The entered phone number is too long.</div>
+        <div *ngIf="FatherHN.errors.pattern">Invalid phone number. Please make use of only numbers.</div>
+      </div>
+  
+  </div>
+  <div class="col">
+  
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Cell Number</span>
+        </div>
+        <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Number"
+        name="FatherCell"
+        #FatherCell="ngModel"
+        required
+        minlength="10"
+        maxlength="10"
+        pattern="^[0-9]*$"
+        [(ngModel)]="detailsForUpdate.Parent2.CellphoneNumber"
+        >
+      </div>
+          <div *ngIf = "FatherCell.touched && !FatherCell.valid" class="text-danger">
+            <div *ngIf="FatherCell.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="FatherCell.errors.minlength">A phone number should be at least {{FatherCell.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="FatherCell.errors.maxlength">The entered phone number is too long.</div>
+            <div *ngIf="FatherCell.errors.pattern">Invalid phone number. Please make use of only numbers.</div>
+          </div>
+    
+    </div>
+  </div>
+  <div class="row">
+      
+    <div class="col-md-6">
+        <br>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Email Address</span>
+            </div>
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Email Address"
+            name="FatherEmail"
+            #FatherEmail="ngModel"
+            required
+            minlength="6"
+            maxlength="50"
+            pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            [(ngModel)]="detailsForUpdate.Parent2.EmailAddress"
+            >
+          </div>
+              <div *ngIf = "FatherEmail.touched && !FatherEmail.valid" class="text-danger">
+                <div *ngIf="FatherEmail.errors.required">This field is required, please enter a value</div>
+                <div *ngIf="FatherEmail.errors.minlength">An email should be at least {{FatherEmail.errors.minlength.requiredLength}} characters</div>
+                <div *ngIf="FatherEmail.errors.maxlength">The entered email is too long.</div>
+                <div *ngIf="FatherEmail.errors.pattern">Invalid email address. Please use the following format: name@provider.com</div>
+              </div>
+  </div>
+  <div class="col">
+  <br>
+  <div class="custom-file">
+    <input 
+    type="file" 
+    class="custom-file-input" 
+    id="customFileLang"
+    name="IDFileFather" 
+    accept="application/pdf"
+    #IDFileFather = "ngModel"
+    [(ngModel)]="IDFileFatherValue"
+    (change) = "onFileChangeFather($event)"
+    >
+    <div *ngIf = "IDFileFather.touched && !IDFileFather.valid" class="text-danger">
+      <div *ngIf="IDFileFather.errors.required">This field is required, please enter a value</div>
+      <div *ngIf="IDFileFather.errors.filetype">File type not supported. Please upload a PDF.</div>
+    </div>
+    <label class="custom-file-label" for="customFileLang">Upload your ID</label>
+  </div>
+  </div>
+  <div class="col-md-3 text-right">
+    <div class="d-inline-block">
+  <img  src="https://img.icons8.com/dusk/64/000000/family.png"/>
+  </div>
+  <div class="form-check d-inline-block">
+    <label class="form-check-label" for="exampleCheck1">Primary Parent</label>
+    <input  
+    data-toggle="tooltip" 
+    data-placement="bottom" 
+    title="Primary Parent: arent who receieves all notifications. We will contact this parent first in emergencies etc." 
+    type="checkbox" 
+    class="form-check" 
+    id="PrimaryParent2"
+    [checked]="detailsForUpdate.Parent2.PrimaryParent"
+    [disabled]="detailsForUpdate.Parent1.PrimaryParent"
+    (change)="detailsForUpdate.Parent2.PrimaryParent = !detailsForUpdate.Parent2.PrimaryParent"
+    >
+  </div>
+  </div>
+  
+  </div>
+  <br>
+  <div class="container">
+      <h3 class="text-center"><img src="https://img.icons8.com/cotton/64/000000/school-bus-2.png"/><br><strong> Details Concerning Other People Who May Fetch Your Child</strong></h3>
+      <h4 class="text-center">Person 1</h4>
+  <div class="row">
+      <div class="col">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Name & Surname</span>
+              </div>
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="First Name"
+              name="PUPOneFirstName"
+              #PUPOneFirstName="ngModel"
+              required
+              minlength="3"
+              maxlength="20"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.PUP1.Name"
+              >
+              
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Last Name"
+              name="PUPOneLastName"
+              #PUPOneLastName="ngModel"
+              required
+              minlength="3"
+              maxlength="20"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.PUP1.Surname"
+              >
+            </div>
+                <div *ngIf = "PUPOneLastName.touched && !PUPOneLastName.valid" class="text-danger text-center">
+                  <div *ngIf="PUPOneLastName.errors.required">This field is required, please enter a value</div>
+                  <div *ngIf="PUPOneLastName.errors.minlength">A surname should be at least {{PUPOneLastName.errors.minlength.requiredLength}} characters</div>
+                  <div *ngIf="PUPOneLastName.errors.maxlength">The entered surname is too long.</div>
+                  <div *ngIf="PUPOneLastName.errors.pattern">Invalid surname. Please use lower and upper case letters only</div>
+                </div>
+            <div *ngIf = "PUPOneFirstName.touched && !PUPOneFirstName.valid" class="text-danger text-center">
+              <div *ngIf="PUPOneFirstName.errors.required">This field is required, please enter a value</div>
+              <div *ngIf="PUPOneFirstName.errors.minlength">A name should be at least {{PUPOneFirstName.errors.minlength.requiredLength}} characters</div>
+              <div *ngIf="PUPOneFirstName.errors.maxlength">The entered name is too long.</div>
+              <div *ngIf="PUPOneFirstName.errors.pattern">Invalid name. Please use lower and upper case letters only</div>
+            </div>
+      </div>
+  </div>
+  
+  
+  <div class="row">
+      <div class="col">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> Address</span>
+              </div>
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Address"
+              name="PUPOneAddress"
+              #PUPOneAddress="ngModel"
+              required
+              minlength="5"
+              maxlength="150"
+              pattern="^[A-Za-z0-9, ]*$"
+              [(ngModel)]="detailsForUpdate.PUP1.Address"
+              >
+            </div>
+                <div *ngIf = "PUPOneAddress.touched && !PUPOneAddress.valid" class="text-danger text-center">
+                  <div *ngIf="PUPOneAddress.errors.required">This field is required, please enter a value</div>
+                  <div *ngIf="PUPOneAddress.errors.minlength">An address should be at least {{PUPOneAddress.errors.minlength.requiredLength}} characters</div>
+                  <div *ngIf="PUPOneAddress.errors.maxlength">The entered address is too long.</div>
+                  <div *ngIf="PUPOneAddress.errors.pattern">Invalid Address. Please use lower and upper case letters</div>
+                </div>
+  </div>
+  </div>
+  
+  <div class="row">
+  <div class="col">
+  
+      <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Cell Number</span>
+          </div>
+          <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Number"
+          name="PUPOneCell"
+          #PUPOneCell="ngModel"
+          required
+          minlength="10"
+          maxlength="10"
+          pattern="^[0-9]*$"
+          [(ngModel)]="detailsForUpdate.PUP1.ContactNumber"
+          >
+        </div>
+            <div *ngIf = "PUPOneCell.touched && !PUPOneCell.valid" class="text-danger text-center">
+              <div *ngIf="PUPOneCell.errors.required">This field is required, please enter a value</div>
+              <div *ngIf="PUPOneCell.errors.minlength">A cell number should be at least {{PUPOneCell.errors.minlength.requiredLength}} characters</div>
+              <div *ngIf="PUPOneCell.errors.maxlength">The entered cell number is too long.</div>
+              <div *ngIf="PUPOneCell.errors.pattern">Invalid cell number. Please use only numbers.</div>
+            </div>
+      
+      </div>
+  </div>
+  
+  <br>
+  <h4 class="text-center">Person 2</h4>
+  <div class="row">
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Name & Surname</span>
+            </div>
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="First Name"
+            name="PUPTwoFirstName"
+            #PUPTwoFirstName="ngModel"
+            required
+            minlength="3"
+            maxlength="20"
+            pattern="^[a-zA-Z ]+$"
+            [(ngModel)]="detailsForUpdate.PUP2.Name"
+            >
+           
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Last Name"
+            name="PUPTwoLastName"
+            #PUPTwoLastName="ngModel"
+            required
+            minlength="3"
+            maxlength="20"
+            pattern="^[a-zA-Z ]+$"
+            [(ngModel)]="detailsForUpdate.PUP2.Surname"
+            >
+          </div>
+              <div *ngIf = "PUPTwoLastName.touched && !PUPTwoLastName.valid" class="text-danger text-center">
+                <div *ngIf="PUPTwoLastName.errors.required">This field is required, please enter a value</div>
+                <div *ngIf="PUPTwoLastName.errors.minlength">A surname should be at least {{PUPTwoLastName.errors.minlength.requiredLength}} characters</div>
+                <div *ngIf="PUPTwoLastName.errors.maxlength">The entered surname is too long.</div>
+                <div *ngIf="PUPTwoLastName.errors.pattern">Invalid surname. Please use lower and upper case letters only</div>
+              </div>
+          <div *ngIf = "PUPTwoFirstName.touched && !PUPTwoFirstName.valid" class="text-danger text-center">
+            <div *ngIf="PUPTwoFirstName.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="PUPTwoFirstName.errors.minlength">A name should be at least {{PUPTwoFirstName.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="PUPTwoFirstName.errors.maxlength">The entered name is too long.</div>
+            <div *ngIf="PUPTwoFirstName.errors.pattern">Invalid name. Please use lower and upper case letters only</div>
+          </div>
+    </div>
+  </div>
+  
+  
+  <div class="row">
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> Address</span>
+            </div>
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Address"
+            name="PUPTwoAddress"
+            #PUPTwoAddress="ngModel"
+            required
+            minlength="5"
+            maxlength="150"
+            pattern="^[A-Za-z0-9, ]*$"
+            [(ngModel)]="detailsForUpdate.PUP2.Address"
+            >
+          </div>
+              <div *ngIf = "PUPTwoAddress.touched && !PUPTwoAddress.valid" class="text-danger text-center">
+                <div *ngIf="PUPTwoAddress.errors.required">This field is required, please enter a value</div>
+                <div *ngIf="PUPTwoAddress.errors.minlength">An address should be at least {{PUPTwoAddress.errors.minlength.requiredLength}} characters</div>
+                <div *ngIf="PUPTwoAddress.errors.maxlength">The entered address is too long.</div>
+                <div *ngIf="PUPTwoAddress.errors.pattern">Invalid Address. Please use lower and upper case letters</div>
+              </div>
+  </div>
+  </div>
+  
+  <div class="row">
+  <div class="col">
+  
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Cell Number</span>
+        </div>
+        <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Number"
+        name="PUPTwoCell"
+        #PUPTwoCell="ngModel"
+        required
+        minlength="10"
+        maxlength="10"
+        pattern="^[0-9]*$"
+        [(ngModel)]="detailsForUpdate.PUP2.ContactNumber"
+        >
+      </div>
+          <div *ngIf = "PUPTwoCell.touched && !PUPTwoCell.valid" class="text-danger text-center">
+            <div *ngIf="PUPTwoCell.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="PUPTwoCell.errors.minlength">A cell number should be at least {{PUPTwoCell.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="PUPTwoCell.errors.maxlength">The entered cell number is too long.</div>
+            <div *ngIf="PUPTwoCell.errors.pattern">Invalid cell number. Please use only numbers.</div>
+          </div>
+    
+    </div>
+  </div>
+  
+  
+  </div>
+  <br>
+  <div class="container">
+    <h3 class="text-center"><img src="https://img.icons8.com/cotton/64/000000/ambulance--v1.png"/><br><strong> Details Concerning Emergency Contacts</strong></h3>
+    <h4 class="text-center">Person 1</h4>
+  <div class="row">
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Name & Surname</span>
+            </div>
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="First Name"
+              name="ECOneFirstName"
+              #ECOneFirstName="ngModel"
+              required
+              minlength="3"
+              maxlength="20"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.EC1.ContactName"
+              >
+              
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Last Name"
+              name="ECOneLastName"
+              #ECOneLastName="ngModel"
+              required
+              minlength="3"
+              maxlength="20"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.EC1.ContactSurname"
+              >
+            </div>
+                <div *ngIf = "ECOneLastName.touched && !ECOneLastName.valid" class="text-danger">
+                  <div *ngIf="ECOneLastName.errors.required">This field is required, please enter a value</div>
+                  <div *ngIf="ECOneLastName.errors.minlength">A surname should be at least {{ECOneLastName.errors.minlength.requiredLength}} characters</div>
+                  <div *ngIf="ECOneLastName.errors.maxlength">The entered surname is too long.</div>
+                  <div *ngIf="ECOneLastName.errors.pattern">Invalid surname. Please use only upper and lower case letters.</div>
+                </div>
+          <div *ngIf = "ECOneFirstName.touched && !ECOneFirstName.valid" class="text-danger">
+            <div *ngIf="ECOneFirstName.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="ECOneFirstName.errors.minlength">A name should be at least {{ECOneFirstName.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="ECOneFirstName.errors.maxlength">The entered name is too long.</div>
+            <div *ngIf="ECOneFirstName.errors.pattern">Invalid name. Please use only upper and lower case letters.</div>
+          </div>
+    </div>
+    <div class="col">
+  
+      <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Relation</span>
+          </div>
+          <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Relation"
+          name="ECOneRelation"
+          #ECOneRelation="ngModel"
+          required
+          minlength="1"
+          maxlength="10"
+          pattern="^[a-zA-Z ]+$"
+          [(ngModel)]="detailsForUpdate.EC1.Relation"
+          >
+        </div>
+            <div *ngIf = "ECOneRelation.touched && !ECOneRelation.valid" class="text-danger">
+              <div *ngIf="ECOneRelation.errors.required">This field is required, please enter a value</div>
+              <div *ngIf="ECOneRelation.errors.minlength">A relation should be at least {{ECOneRelation.errors.minlength.requiredLength}} characters</div>
+              <div *ngIf="ECOneRelation.errors.maxlength">The entered relation is too long.</div>
+              <div *ngIf="ECOneRelation.errors.pattern">Invalid relation. Please use only upper and lower case letters.</div>
+            </div>
+      
+      </div>
+  </div>
+  
+  
+  <div class="row">
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> Address</span>
+            </div>
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Address"
+            name="ECOneAddress"
+            #ECOneAddress="ngModel"
+            required
+            minlength="5"
+            maxlength="150"
+            pattern="^[A-Za-z0-9, ]*$"
+            [(ngModel)]="detailsForUpdate.EC1.Address"
+            >
+          </div>
+              <div *ngIf = "ECOneAddress.touched && !ECOneAddress.valid" class="text-danger text-center">
+                <div *ngIf="ECOneAddress.errors.required">This field is required, please enter a value</div>
+                <div *ngIf="ECOneAddress.errors.minlength">An address should be at least {{ECOneAddress.errors.minlength.requiredLength}} characters</div>
+                <div *ngIf="ECOneAddress.errors.maxlength">The entered address is too long.</div>
+                <div *ngIf="ECOneAddress.errors.pattern">Invalid address. Please use only upper and lower case letters and numbers.</div>
+              </div>
+  </div>
+  </div>
+  
+  <div class="row">
+  <div class="col">
+  
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Cell Number</span>
+        </div>
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Cell"
+          name="ECOneCellNumber"
+          #ECOneCellNumber="ngModel"
+          required
+          minlength="10"
+          maxlength="10"
+          pattern="^[0-9]*$"
+          [(ngModel)]="detailsForUpdate.EC1.ContactNumber"
+        >
+      </div>
+          <div *ngIf = "ECOneCellNumber.touched && !ECOneCellNumber.valid" class="text-danger text-center">
+            <div *ngIf="ECOneCellNumber.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="ECOneCellNumber.errors.minlength">An cell number should be at least {{ECOneCellNumber.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="ECOneCellNumber.errors.maxlength">The entered cell number is too long.</div>
+            <div *ngIf="ECOneCellNumber.errors.pattern">Invalid cell number. Please use only numbers.</div>
+          </div>
+    
+    </div>
+  
+  </div>
+  
+  <br>
+  <h4 class="text-center">Person 2</h4>
+  <div class="row">
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Name & Surname</span>
+            </div>
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="First Name"
+              name="ECTwoFirstName"
+              #ECTwoFirstName="ngModel"
+              required
+              minlength="3"
+              maxlength="20"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.EC2.ContactName"
+              >
+              
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Last Name"
+              name="ECTwoLastName"
+              #ECTwoLastName="ngModel"
+              required
+              minlength="3"
+              maxlength="20"
+              pattern="^[a-zA-Z ]+$"
+              [(ngModel)]="detailsForUpdate.EC2.ContactSurname"
+              >
+            </div>
+                <div *ngIf = "ECTwoLastName.touched && !ECTwoLastName.valid" class="text-danger">
+                  <div *ngIf="ECTwoLastName.errors.required">This field is required, please enter a value</div>
+                  <div *ngIf="ECTwoLastName.errors.minlength">A surname should be at least {{ECTwoLastName.errors.minlength.requiredLength}} characters</div>
+                  <div *ngIf="ECTwoLastName.errors.maxlength">The entered surname is too long.</div>
+                  <div *ngIf="ECTwoLastName.errors.pattern">Invalid surname. Please use only upper and lower case letters.</div>
+                </div>
+          <div *ngIf = "ECTwoFirstName.touched && !ECTwoFirstName.valid" class="text-danger">
+            <div *ngIf="ECTwoFirstName.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="ECTwoFirstName.errors.minlength">A name should be at least {{ECTwoFirstName.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="ECTwoFirstName.errors.maxlength">The entered name is too long.</div>
+            <div *ngIf="ECTwoFirstName.errors.pattern">Invalid name. Please use only upper and lower case letters.</div>
+          </div>
+    </div>
+    <div class="col">
+  
+      <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Relation</span>
+          </div>
+          <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Relation"
+          name="ECTwoRelation"
+          #ECTwoRelation="ngModel"
+          required
+          minlength="1"
+          maxlength="10"
+          pattern="^[a-zA-Z ]+$"
+          [(ngModel)]="detailsForUpdate.EC2.Relation"
+          >
+        </div>
+            <div *ngIf = "ECTwoRelation.touched && !ECOneRelation.valid" class="text-danger">
+              <div *ngIf="ECTwoRelation.errors.required">This field is required, please enter a value</div>
+              <div *ngIf="ECTwoRelation.errors.minlength">A relation should be at least {{ECTwoRelation.errors.minlength.requiredLength}} characters</div>
+              <div *ngIf="ECTwoRelation.errors.maxlength">The entered relation is too long.</div>
+              <div *ngIf="ECTwoRelation.errors.pattern">Invalid relation. Please use only upper and lower case letters.</div>
+            </div>
+      
+      </div>
+  </div>
+  
+  
+  <div class="row">
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> Address</span>
+            </div>
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Address"
+            name="ECTwoAddress"
+            #ECTwoAddress="ngModel"
+            required
+            minlength="5"
+            maxlength="150"
+            pattern="^[A-Za-z0-9, ]*$"
+            [(ngModel)]="detailsForUpdate.EC2.Address"
+            >
+          </div>
+              <div *ngIf = "ECTwoAddress.touched && !ECTwoAddress.valid" class="text-danger text-center">
+                <div *ngIf="ECTwoAddress.errors.required">This field is required, please enter a value</div>
+                <div *ngIf="ECTwoAddress.errors.minlength">An address should be at least {{ECTwoAddress.errors.minlength.requiredLength}} characters</div>
+                <div *ngIf="ECTwoAddress.errors.maxlength">The entered address is too long.</div>
+                <div *ngIf="ECTwoAddress.errors.pattern">Invalid address. Please use only upper and lower case letters and numbers.</div>
+              </div>
+  </div>
+  </div>
+  
+  <div class="row">
+  <div class="col">
+  
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Cell Number</span>
+        </div>
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Cell"
+          name="ECTwoCellNumber"
+          #ECTwoCellNumber="ngModel"
+          required
+          minlength="10"
+          maxlength="10"
+          pattern="^[0-9]*$"
+          [(ngModel)]="detailsForUpdate.EC2.ContactNumber"
+        >
+      </div>
+          <div *ngIf = "ECTwoCellNumber.touched && !ECTwoCellNumber.valid" class="text-danger text-center">
+            <div *ngIf="ECTwoCellNumber.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="ECTwoCellNumber.errors.minlength">An cell number should be at least {{ECTwoCellNumber.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="ECTwoCellNumber.errors.maxlength">The entered cell number is too long.</div>
+            <div *ngIf="ECTwoCellNumber.errors.pattern">Invalid cell number. Please use only numbers.</div>
+          </div>
+    
+    </div>
+  
+  </div>
+
+  
+  </div>
+  <div class="container">
+    <h3 class="text-center"><img src="https://img.icons8.com/officel/80/000000/submit-resume.png"/><br><strong>Application Information</strong></h3>
+
+  <div class="row">
+    <div class="col">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">School Fee Package</label>
+        </div>
+        <select 
+        class="custom-select" 
+        id="inputGroupSelect01"
+        required
+        name="SelectListFee"
+        [(ngModel)]= "RegistrationModel.PackageID"
+        #selectListFee = "ngModel"
+        >
+          <option selected *ngFor="let package of RegPageInfo.Packages" value="package.PackageID">{{package.Description}}</option>
+        </select>
+      </div>
+          <div *ngIf = "selectListFee.touched && !selectListFee.valid" class="text-danger text-center">
+            <div *ngIf="selectListFee.errors.required">This field is required, please enter a value</div>
+          </div>
+  </div>
+  </div>
+  </div>
+  <br>
+  </div>
+  <input type="submit" class="btn btn-light btn-lg float-right" [disabled]="!ApplyRegisterForm.form.valid" value="Submit">
+  <br>
+  <br>
+  <br>
+  </form>
+
+  <!--Sucessful Modal-->
+<div class="modal backdrop fade in" id="Success" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="icon-box modalicon">
+          <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+        </div>
+        <br>				
+      <h4 class="modal-title">Successful</h4>
+        <p style="text-align: center;">The event was updated successfully.</p>
+      </div>
+      <div class="modal-footer"style="border:none;">
+        <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<button [hidden]="true" data-target="#Success" data-toggle="modal" id="updateSuccess"></button>
+
+   <!--Confirm Modal-->
+   <div class="modal backdrop fade in" id="ConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box modalicon">
+            <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+          </div>
+          <br>				
+        <h4 class="modal-title">Successful</h4>
+          <p style="text-align: center;">Your details have been updated successful.</p>
+        </div>
+        <div class="modal-footer"style="border:none;">
+          <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+        </div>
+        </div>
+        </div>
+      </div>
+
+      <button id="toggleChildModal" data-toggle="modal" data-target="#SelectChildModal" [hidden]="true"></button>
+
+      <div class="modal backdrop fade in" id="SelectChildModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="icon-box modalicon">
+                <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+              </div>
+              <br>				
+            <h4 class="modal-title">Select the child who's details you'd like to see.</h4>
+            <select 
+             class="custom-select" 
+             id="inputGroupSelect01"
+             required
+             name="SelectChild"
+             [(ngModel)]= "childID"
+             #selectChild = "ngModel"
+            >
+              <option *ngFor="let child of children" value={{child.ChildID}}>{{child.ChildName}}</option>
+            </select>
+            </div>
+            <div class="modal-footer"style="border:none;">
+              <button type="button" class="btn btn-info" data-dismiss="modal" (click)="GetInfo()">OK</button>
+              <button type="button" data-dismiss="modal" id="dismissModal" [hidden]="true"></button>
+            </div>
+            </div>
+            </div>
+          </div>
+
+
+
+
+
+    
+

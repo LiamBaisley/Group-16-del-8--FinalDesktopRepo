@@ -1,0 +1,89 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<div class="wrapper">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="form-group">
+      <h1 class="h1"><a class="nav-link logotext" >Canny Communicator</a></h1>
+        </div>
+
+    <!-- Login Form -->
+    <form #loginForm="ngForm" (ngSubmit)="Login()">
+      <div class="form-group">
+      <input 
+      type="text" 
+      id="username" 
+      class="form-control" 
+      name="Username" 
+      placeholder="Username"
+      #Username = "ngModel"
+      required
+      minlength="1"
+      maxlength="20"
+      pattern="^[A-Za-z0-9]*$"
+      [(ngModel)]= "UsernameValue"
+      >
+      <div *ngIf = "Username.touched && !Username.valid" class="text-danger">
+        <div *ngIf="Username.errors.required">This field is required, please enter a value</div>
+        <div *ngIf="Username.errors.minlength">A Username should be at least {{Username.errors.minlength.requiredLength}} characters</div>
+        <div *ngIf="Username.errors.maxlength">The entered username is too long.</div>
+        <div *ngIf="Username.errors.pattern">The username entered contains characters that are not allowed. Please enter letters and numbers only.</div>
+      </div>
+      </div>
+      <div class="form-group">
+        <input 
+        type="password" 
+        id="password" 
+        class="form-control" 
+        name="password" 
+        placeholder="Password"
+        #Password="ngModel"
+        required
+        minlength="8"
+        maxlength="20"
+        [(ngModel)]="PasswordValue"
+        >
+        <div *ngIf = "Password.touched && !Password.valid" class="text-danger">
+          <div *ngIf="Password.errors.required">This field is required, please enter a value</div>
+          <div *ngIf="Password.errors.minlength">A password should be at least {{Password.errors.minlength.requiredLength}} characters</div>
+          <div *ngIf="Password.errors.maxlength">The entered paassword is too long.</div>
+        </div>
+      </div>
+      <button type="submit"  class="btn btn-info" [disabled]="!loginForm.form.valid"> Login </button>
+      <button type="button" data-toggle="modal" data-target="#ErrorModal" id="ToggleModal" [hidden]="true"></button>
+      <br />
+      <br />
+    </form>
+
+     <!--Error Modal-->
+  <div class="modal backdrop " id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box modalicon">
+            <img src="https://img.icons8.com/dusk/64/000000/error.png"/>
+          </div>
+          <br>				
+        <h4 class="modal-title">Error</h4>
+          <p style="text-align: center;">Username or Password is incorrect. Please try again.</p>
+        </div>
+        <div class="modal-footer"style="border:none;">
+          <button type="button" class="btn btn-error" data-dismiss="modal">Try again</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" routerLink="/ApplyToRegister">Register</button>
+        </div>
+        </div>
+        </div>
+      </div>
+
+    <!-- Reset Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" [routerLink]="['/ResetPassword']">Forgot Password?</a>
+    </div>
+
+  </div>
+</div>

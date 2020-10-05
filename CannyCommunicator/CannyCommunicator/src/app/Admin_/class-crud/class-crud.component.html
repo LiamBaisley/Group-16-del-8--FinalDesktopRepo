@@ -1,0 +1,338 @@
+<div class="container-fluid bg-light">
+  <h2 class="h2"> <img class="float-right imageclassname"  src="assets/Images/LogoGirl.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/Logo.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/LogoBoy.jpg" width="200px" height="90px"/> 
+    <a class="nav-link logotext" routerLink="/AdminHome">Canny Communicator</a></h2>
+  <h6 class="h6 indent">Admin Portal</h6>
+  <hr />
+
+  <!--Nav-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/FamilyAccountList">Family Accounts <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Employees
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="/EmployeeList">Manage Employees</a>
+              <a class="dropdown-item" routerLink="/AllocateEmployeeDuty">Manage employee Duties</a>
+            </div>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/ApplicationsList" >
+                Applications
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/MealPlan"> Meal Plans</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/SchoolFeePackage"> School Fees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/Document">Documentation</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Administration
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" routerLink="/EmployeeType">Manage Employee Types</a>
+                <a class="dropdown-item" routerLink="/Duties">Manage Duties</a>
+                <a class="dropdown-item" routerLink="/UserType">Manage User Types</a>
+                <a class="dropdown-item" routerLink="/Class">Manage Classes</a>
+                <a class="dropdown-item" routerLink="/ClassGrade">Manage Class Grades</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTypes">Manage Progress Report Types</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTestCategories">Manage Progress Report Test Categories</a>
+                <a class="dropdown-item" routerLink="/ExtraMural">Manage Extra-Murals</a>
+                <a class="dropdown-item" routerLink="/ExtraMuralCompany">Manage Extra-Mural Companies</a>
+                <a class="dropdown-item" routerLink="/FoodItem">Manage Food Items</a>
+              </div>
+            </li>
+        </ul>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown" class="float-right" style="padding-right: 75px;">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="nav-item nav-link float-right" routerLink="/ChangePassword">Change password</a>
+              <br>
+              <br>
+            </div>
+          </li>
+        </ul>
+      </div> 
+    </nav>
+    <!-- End of nav bar -->
+    <h1>CLASSES</h1>
+    <br>
+    <p class="text-center"> To add a new Class click here <button class="btn btn-light" data-toggle="modal" data-target="#AddClass">  <i class="fas fa-plus"></i></button></p>
+    <br>
+      
+    <!-- Table -->
+    <div class="table-responsive table-editable">
+      <table class="table largetext">
+        <thead>
+          <tr>
+              <th scope="col">Class Name</th>
+              <th scope="col">Grade</th>
+              <th scope="col">Action </th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let Class of Classes" >
+            <td 
+             > {{Class.Name}}</td>
+             
+           
+            <td 
+             >{{Class.ClassGrade}}</td> 
+
+            
+            <td style="position: relative;">
+              <button (click)="Update(Class.ClassID)" data-toggle="modal" data-target="#UpdateModal" class="btn btn-light" style="padding:0.5cm;" ><i class="fas fa-pencil-alt" style="color: teal;font-size: 150%; ">  </i>
+              <br>Update</button>
+              <button (click)="Delete(Class.ClassID)"  data-toggle="modal" data-target="#DeleteModal" class="btn btn-light" style="padding:0.5cm;" ><i class="fas fa-eraser" style="color: red; font-size: 150%;"></i><br>Delete</button>           
+            </td>
+          </tr>  
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Delete a type -->
+    <div class="modal backdrop fade in" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="icon-box text-center icobox">
+                <img src="https://img.icons8.com/office/80/000000/delete-view.png"/>
+            </div>
+            <br>				
+            <h4 class="modal-title text-center">Are you sure?</h4>
+            <p class="text-center">Do you really want to delete these records? This process cannot be undone.</p>
+          </div>
+          <div class="modal-footer text-center modalfoot">
+            <button (click)="DeleteConfirm()" type="button" data-dismiss="modal" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add new type -->
+    <form #myForm="ngForm" (ngSubmit)="SubmitForm()">
+    <div class="modal backdrop fade in" id="AddClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            
+              <div class="icon-box text-center icobox" >
+                <img src="https://img.icons8.com/dusk/64/000000/add-property.png"/>
+              </div>				
+              <h4 class="modal-title text-center">ADD NEW CLASS</h4>
+              
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Class Name</span>
+                  </div>
+                  <input type="text" 
+                  id="TextboxInput" 
+                  name="TextboxInput" 
+                  #TextboxInput= "ngModel"
+                  required
+                  minlength="3"
+                  maxlength="10"
+                  pattern="[a-zA-Z]*"
+                  [(ngModel)]="TextboxInputvalue"
+                  (change) ="log(TextboxInput)"
+                  class="form-control" 
+                  placeholder="Type" 
+                  aria-label="Username"
+                  aria-describedby="basic-addon1">
+
+              </div>
+ <div *ngIf="TextboxInput.touched && !TextboxInput.valid">
+            <!-- This error is for if the field is empty but it is required -->
+              <div *ngIf="TextboxInput.errors.required" class= "text-danger">This field is required</div>
+              <!-- This error is for if the input is shorter than the minimum length -->
+              <div *ngIf = "TextboxInput.errors.minlength" class= "text-danger">This input should be minimum {{TextboxInput.errors.minlength.requiredLength}}</div>
+              <!-- This error is for if the input is longer than the maximum length -->
+              <div *ngIf = "TextboxInput.errors.maxlength" class= "text-danger">This input exceeds the length limit </div>
+              <!-- This error is for if the input doesnt match the pattern we assigned to it -->
+              <div *ngIf = "TextboxInput.errors.pattern" class= "text-danger">This input is of the wrong format </div>
+          </div>
+
+              
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Class Grade</span>
+                </div>
+                <select class="custom-select" id="SelectList1" required name="SelectList1" 
+                [(ngModel)]= "SelectList1value" #SelectList1 = "ngModel">
+              
+                  <option *ngFor ="let class of ClassGrade" [value]="class.ClassGradeID">{{class.ClassGradeName}}</option>
+                 
+                </select>
+            
+            </div>
+            
+<!-- We display an error if the user clicked on the select list but did not choose a value -->
+<div *ngIf="SelectList1.touched && !SelectList1.valid"  class= "text-danger">
+  This field is required
+</div>
+
+
+                  
+          <div class="modal-footer text-center modalfoot"style="align-content: center; margin: auto; border:none;">
+            <button (click)="SubmitForm()" data-dismiss="modal" type="button" [disabled]="!myForm.form.valid" data-toggle="modal" data-target="#SuccessModal" class="btn btn-dark">Add</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </form>
+    
+    <!-- Update a record modal -->
+    <form #myForm="ngForm" (ngSubmit)="SubmitForm()">
+  <div class="modal backdrop fade in" id="UpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          
+            <div class="icon-box text-center icobox" >
+              <img src="https://img.icons8.com/plasticine/100/000000/approve-and-update.png"/>
+            </div>				
+            <h4 class="modal-title text-center">UPDATE CLASS</h4>
+            
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Class Name</span>
+                </div>
+                <input type="text"
+                class="form-control"
+                id="TextInput1" 
+                name="TextInput1" 
+                #TextInput1="ngModel" 
+                required
+                minlength="3"
+                maxlength="10"
+                pattern="[a-zA-Z]*"
+                [(ngModel)]="TextInput1value"
+                (change) = "log(TextInput1)"
+                placeholder="Class Name" 
+                aria-label="Username"
+                aria-describedby="basic-addon1" >
+           
+            </div>
+<div *ngIf="TextInput1.touched && !TextInput1.valid">
+          <!-- This error is for if the field is empty but it is required -->
+            <div *ngIf="TextInput1.errors.required" class= "text-danger">This field is required</div>
+            <!-- This error is for if the input is shorter than the minimum length -->
+            <div *ngIf = "TextInput1.errors.minlength" class= "text-danger">This input should be minimum {{TextInput1.errors.minlength.requiredLength}}</div>
+            <!-- This error is for if the input is longer than the maximum length -->
+            <div *ngIf = "TextInput1.errors.maxlength" class= "text-danger">This input exceeds the length limit </div>
+            <!-- This error is for if the input doesnt match the pattern we assigned to it -->
+            <div *ngIf = "TextInput1.errors.pattern" class= "text-danger">This input is of the wrong format </div>
+        </div>
+
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Class Grade</span>
+          </div>
+           
+          <select class="custom-select" id="SelectList2" required name="SelectList2" 
+          [(ngModel)]= "SelectList2value" #SelectList2 = "ngModel">
+        
+            <option *ngFor ="let class of ClassGrade" [value]="class.ClassGradeID">{{class.ClassGradeName}}</option>
+           
+          </select>
+<!-- We display an error if the user clicked on the select list but did not choose a value -->
+<div *ngIf="SelectList2.touched && !SelectList2.valid"  class= "text-danger">
+This field is required
+</div>
+</div>
+
+      <!--[disabled]="!myForm.form.valid"-->      
+    <div class="modal-footer text-center modalfoot"style="align-content: center; margin: auto; border:none;">
+      <button data-dismiss="modal" (click)="SubmitChanges()" type="button"  data-toggle="modal" data-target="#SuccessModal" class="btn btn-dark">Update</button>
+      <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</form>
+
+  <!--Success Modal-->
+  <div class="modal backdrop fade in" id="SuccessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box modalicon">
+            <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+          </div>
+          <br>				
+        <h4 class="modal-title">Successful</h4>
+          <p style="text-align: center;"> Class Information Saved</p>
+        </div>
+        <div class="modal-footer"style="border:none;">
+          <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- No delete modal -->
+  <button data-toggle="modal" data-target="#ErrorModal" id="NoDelete" [hidden]="true"></button>
+  <div class="modal backdrop " id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box modalicon">
+            <img src="https://img.icons8.com/dusk/64/000000/error.png"/>
+          </div>
+          <br>				
+        <h4 class="modal-title">Cannot be deleted </h4>
+          <p style="text-align: center;">This item cannot be deleted because other data depends on it.</p>
+        </div>
+        <div class="modal-footer"style="border:none;">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+        </div>
+        </div>
+        </div>
+      </div>
+
+
+   <!--InfoRemoved Modal-->
+   <button data-toggle="modal" data-target="#SuccessModalD" id="GoDelete" [hidden]="true"></button>
+  <div class="modal backdrop fade in" id="SuccessModalD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box modalicon">
+            <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+          </div>
+          <br>				
+        <h4 class="modal-title">Successful</h4>
+          <p style="text-align: center;">Class Information Removed</p>
+        </div>
+        <div class="modal-footer"style="border:none;">
+          <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>

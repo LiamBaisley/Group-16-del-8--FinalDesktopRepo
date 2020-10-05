@@ -1,0 +1,140 @@
+<div class="container-fluid bg-light">
+  <h2 class="h2"> <img class="float-right imageclassname"  src="assets/Images/LogoGirl.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/Logo.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/LogoBoy.jpg" width="200px" height="90px"/> 
+    <a class="nav-link logotext" routerLink="/AdminHome">Canny Communicator</a></h2>
+  <h6 class="h6 indent">Admin Portal</h6>
+  <hr />
+
+  <!--Nav-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/FamilyAccountList">Family Accounts <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Employees
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="/EmployeeList">Manage Employees</a>
+              <a class="dropdown-item" routerLink="/AllocateEmployeeDuty">Manage employee Duties</a>
+            </div>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/ApplicationsList" >
+                Applications
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/MealPlan"> Meal Plans</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/SchoolFeePackage"> School Fees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/Document">Documentation</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Administration
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" routerLink="/EmployeeType">Manage Employee Types</a>
+                <a class="dropdown-item" routerLink="/Duties">Manage Duties</a>
+                <a class="dropdown-item" routerLink="/UserType">Manage User Types</a>
+                <a class="dropdown-item" routerLink="/Class">Manage Classes</a>
+                <a class="dropdown-item" routerLink="/ClassGrade">Manage Class Grades</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTypes">Manage Progress Report Types</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTestCategories">Manage Progress Report Test Categories</a>
+                <a class="dropdown-item" routerLink="/ExtraMural">Manage Extra-Murals</a>
+                <a class="dropdown-item" routerLink="/ExtraMuralCompany">Manage Extra-Mural Companies</a>
+                <a class="dropdown-item" routerLink="/FoodItem">Manage Food Items</a>
+              </div>
+            </li>
+        </ul>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown" class="float-right" style="padding-right: 75px;">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="nav-item nav-link float-right" routerLink="/ChangePassword">Change password</a>
+              <br>
+              <br>
+            </div>
+          </li>
+        </ul>
+      </div> 
+    </nav>
+      <!-- End of Navbar -->
+  <h1>CLASS LIST</h1>
+  <br>
+  <div class="container-fluid text-center">
+    <form #myForm="ngForm" >
+    <label class="text-center">Choose a class to generate a class list for:</label>
+    <br />
+    <div class="container">
+    <select 
+    required
+    name="SelectList"
+    [(ngModel)]= "selectListClass"
+    #selectList = "ngModel" 
+    class="form-control" id="SelectClass" aria-placeholder="Select a class">
+        <option *ngFor="let item of classes" [value]="item.ClassID">{{item.ClassName}}</option>
+    </select>
+    <br/>
+    <!-- We display an error if the user clicked on the select list but did not choose a value -->
+  <div class="text-danger" *ngIf="selectList.touched && !selectList.valid">
+    Please select a class
+  </div>
+  <br/>
+
+    <label class="text center">Choose a year to generate a class list for:</label>
+    <br />
+    <select
+    required
+    name="SelectList"
+    [(ngModel)]= "selectListYear"
+    #selectList = "ngModel" 
+    class="form-control" id="SelectClass" aria-placeholder="Select a class">
+        <option *ngFor="let item of years" [value]="item.YearID">{{item.Year}}</option>
+    </select>
+    <br/>
+    <!-- We display an error if the user clicked on the select list but did not choose a value -->
+  <div class="text-danger" *ngIf="selectList.touched && !selectList.valid">
+    Please select a class
+  </div>
+    <br/>
+    <div  class="row text-danger" *ngIf="isresult==true">
+      <p style="margin:auto;" >Sorry There are no class lists  for this selection yet. Please choose different critera.</p>
+      </div>
+      <br/>
+    <button class="btn btn-light" [disabled]="!myForm.form.valid" (click)="SubmitForm()">Generate Report</button>
+    <button id="Download" class="btn btn-light" [disabled]="!myForm.form.valid" (click)="Download()">Download class list</button>
+    <br />
+    <br />
+    
+</div>
+    <table class="table" #TABLE #table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of classlist">
+                <td>{{item.ChildName}}</td>
+                <td>{{item.Surname}}</td>
+            </tr>
+        </tbody>
+    </table>
+  </form>
+  </div>

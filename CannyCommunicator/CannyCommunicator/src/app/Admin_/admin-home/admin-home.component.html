@@ -1,0 +1,735 @@
+<div class="container-fluid bg-light">
+  <h2 class="h2"> <img class="float-right imageclassname"  src="assets/Images/LogoGirl.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/Logo.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/LogoBoy.jpg" width="200px" height="90px"/> 
+    <a class="nav-link logotext" routerLink="/AdminHome">Canny Communicator</a></h2>
+  <h6 class="h6 indent">Admin Portal</h6>
+  <hr />
+
+  <!--Nav-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/FamilyAccountList">Family Accounts <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Employees
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="/EmployeeList">Manage Employees</a>
+              <a class="dropdown-item" routerLink="/AllocateEmployeeDuty">Manage employee Duties</a>
+            </div>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/ApplicationsList" >
+                Applications
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/MealPlan"> Meal Plans</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/SchoolFeePackage"> School Fees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/Document">Documentation</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Administration
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" routerLink="/EmployeeType">Manage Employee Types</a>
+                <a class="dropdown-item" routerLink="/Duties">Manage Duties</a>
+                <a class="dropdown-item" routerLink="/UserType">Manage User Types</a>
+                <a class="dropdown-item" routerLink="/Class">Manage Classes</a>
+                <a class="dropdown-item" routerLink="/ClassGrade">Manage Class Grades</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTypes">Manage Progress Report Types</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTestCategories">Manage Progress Report Test Categories</a>
+                <a class="dropdown-item" routerLink="/ExtraMural">Manage Extra-Murals</a>
+                <a class="dropdown-item" routerLink="/ExtraMuralCompany">Manage Extra-Mural Companies</a>
+                <a class="dropdown-item" routerLink="/FoodItem">Manage Food Items</a>
+              </div>
+            </li>
+        </ul>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown" class="float-right" style="padding-right: 75px;">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="nav-item nav-link float-right" routerLink="/ChangePassword">Change password</a>
+              <br>
+              <a class="nav-item nav-link float-right" (click)="logout()">Logout</a>
+              <br>
+            </div>
+          </li>
+        </ul>
+      </div> 
+    </nav>
+
+<!--Notice Panel-->
+<div class="card float-right container cardcontainer " style="width: 350px;">
+  <div class="card-header text-center bg-light"> 
+    <h2>
+      <strong>NOTICES</strong> 
+      <button class="btn btn-light"  data-toggle="modal" data-target="#AddNModal"> <i class="fa fa-plus" aria-hidden="true" style="font-size: 150%;"></i></button>
+    </h2>
+  </div>
+
+  <div class="card-body noticepanel" >
+    <div  class="notices" aria-live="polite" aria-atomic="true" >
+      <div class="cardnotif" >
+        <table >
+          <tr *ngFor ="let notice of noticelist">
+            <td >
+              <div  role="alert cardnotif" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header cardnotif">
+                  <svg class=" rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                  <rect fill="#ADD8E6" width="100%" height="100%" />
+                  </svg>
+                  <strong class="mr-auto">{{notice.NoticeHead}}</strong>
+                </div>
+                <div class="toast-body">
+                  <p>
+                    {{notice.NoticeCont}}
+                    <button class="btn btn-light deletenotice"  data-toggle="modal" data-target="#DeleteNoticeModal" (click)="getNoticeremoveID(notice.NoticeID)"> <i class="fa fa-trash-alt" aria-hidden="true"  ></i></button>
+                  </p>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br>
+  <button class="btn btn-light" routerLink="/SendMessage">SEND A MESSAGE <i class="far fa-envelope"></i></button>
+  <br/>
+  <div class="card-header text-center bg-light"><h2><strong>REPORTS</strong></h2></div>
+    <div class="row">
+    <button style="margin:auto;" class=" text-center btn btn-light " routerLink="/EventsReport">GENERATE EVENTS LIST REPORT</button>
+  </div>
+  <div class="row">
+    <button style="margin:auto;" class="btn btn-light text-center" routerLink="/ExtramuralReport">GENERATE EXTRA-MURAL ACTIVITY LIST REPORT</button>
+  </div>
+  <div class="row">
+    <button style="margin:auto;" class="btn btn-light text-center" routerLink="/ClassList">GENERATE CLASS LIST</button>
+  </div>
+  <div class="row">
+    <button style="margin:auto;" class="btn btn-light text-center" routerLink="/EmployeeListReport">GENERATE EMPLOYEE LIST </button>
+  </div>
+  
+</div>
+
+
+  
+<!-- Calendar Component -->
+<div class="container PCal float-left">
+  <button class="btn btn-primary float-right" data-toggle="modal" data-target="#AddModal" (click)="GetEventTypes()">Add New Event</button>
+  <br />
+  <br />
+  <div class="row text-center">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+
+        >
+          Previous
+        </div>
+        <div
+          class="btn btn-outline-secondary"
+          mwlCalendarToday
+          [(viewDate)]="viewDate"
+        >
+          Today
+        </div>
+        <div
+          class="btn btn-primary"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewChange)="getEvents()"
+
+                  >
+          Next
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3>
+        {{ viewDate | calendarDate:(view +
+        'ViewTitle'):'en':weekStartsOn }}
+      </h3>
+    </div>
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          (click)="view = CalendarView.Month"
+          [class.active]="view === 'month'"
+        >
+          Month
+        </div>
+        <div
+          class="btn btn-primary"
+          (click)="view = CalendarView.Week"
+          [class.active]="view === 'week'"
+        >
+          Week
+        </div>
+        <div
+          class="btn btn-primary"
+          (click)="view = CalendarView.Day"
+          [class.active]="view === 'day'"
+        >
+          Day
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="'month'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh] = "refresh"
+      (eventClicked)="getDetails($event.event.meta)"
+    >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="'week'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh] = "refresh"
+      (eventClicked)="getDetails($event.event.meta)"
+    >
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="'day'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh] = "refresh"
+      (eventClicked)="getDetails($event.event.meta)"
+    >
+    </mwl-calendar-day-view>
+  </div>
+  
+</div>
+
+<ng-template #modalContent let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">{{ModalData.Title}}</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      Date:
+      <pre>{{ ModalData.Date}}</pre>
+    </div>
+    <div>
+      Details:
+      <pre>{{ ModalData.Description}}</pre>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="closeAndOpen()">
+      Edit Event
+    </button>
+
+    <button type="button" class="btn btn-primary" (click)="Delete(ModalData.ID)">
+      Delete Event
+    </button>
+    <button type="button" class="btn btn-primary" (click)="close()">
+      Close
+    </button>
+  </div>
+</ng-template>
+
+<button [hidden]="true" data-toggle="modal" data-target="#DeleteModal" id="deleteConfirm"></button>
+<button [hidden]="true" id="updateModal" data-toggle="modal" data-target="#UpdateModal" ></button>
+<!-- The Modal for add -->
+<div class="modal fade" id="AddModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form #AddEventForm = "ngForm" (ngSubmit)="submitAdd()">
+      
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: lightblue;">
+        <h4 class="modal-title" >ADD A NEW EVENT</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+          
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Event Name</span>
+            </div>
+            <input 
+            type="text" 
+            class="form-control" 
+            id="EventName"
+            name="EventName"
+            #EventName="ngModel"
+            required
+            minlength="3"
+            maxlength="20"
+            pattern="^[a-zA-Z ]+$"
+            [(ngModel)]="newEvent.EventName"
+            >
+          </div>
+          <div *ngIf = "EventName.touched && !EventName.valid" class="text-danger text-center">
+            <div *ngIf="EventName.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="EventName.errors.minlength">A name should be at least {{EventName.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="EventName.errors.maxlength">The entered name is too long.</div>
+            <div *ngIf="EventName.errors.pattern">Please make use of only lower and upper case letters.</div>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Event Description</span>
+            </div>
+            <input 
+            type="text" 
+            class="form-control" 
+            id="EventDescription"
+            name="EventDescription"
+            #EventDescription="ngModel"
+            required
+            minlength="3"
+            maxlength="50"
+            pattern="^[a-zA-Z ]+$"
+            [(ngModel)]="newEvent.Description"
+            >
+          </div>
+          <div *ngIf = "EventDescription.touched && !EventDescription.valid" class="text-danger text-center">
+            <div *ngIf="EventDescription.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="EventDescription.errors.minlength">A description should be at least {{EventDescription.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="EventDescription.errors.maxlength">The entered description is too long.</div>
+            <div *ngIf="EventDescription.errors.pattern">Please make use of only lower and upper case letters.</div>
+          </div>
+         
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Event Cost</span>
+            </div>
+            <input 
+            type="number" 
+            class="form-control" 
+            required
+            id="EventAmount"
+            name="EventAmount"
+            #EventAmount="ngModel"
+            (change)="ValidateAmount()"
+            [(ngModel)]="newEvent.EventCost"
+            >
+          </div>
+          <div *ngIf="EventAmount.touched && !EventAmount.valid" class="text-danger text-center">
+            <div *ngIf="EventAmount.errors.required">This field is required</div>
+            <div *ngIf = "EventAmount.errors.min">This input should not be smaller than 1 </div>
+            <div *ngIf = "EventAmount.errors.max">This input exceeds 100 </div>
+            <div *ngIf = "EventAmount.errors.notinteger">This must be a whole number input</div>
+            <div *ngIf = "EventAmount.errors.decimalOver">the number may only have two decimals</div>
+        </div>
+        
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Event Date</span>
+            </div>
+            <input 
+            type="date" 
+            class="form-control" 
+            id="EventDate"
+            name="EventDate"
+            #EventDate="ngModel"
+            required
+            [(ngModel)]="newEvent.EventDate"
+            (change)="ValidateDate()"
+            >
+          </div>
+          <div *ngIf="EventDate.touched && !EventDate.valid" class="text-danger text-center">
+            <div *ngIf="EventDate.errors.required">Please select a date value</div>
+            <div *ngIf="EventDate.errors.datelimit">Please select a date larger than todays date</div>
+         </div>
+          <br />
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Event type</span>
+            </div>
+            <select 
+            class="form-control"
+            id="EventType"
+            placeholder="Select a type"
+            required
+            name="EventType"
+            [(ngModel)]= "newEvent.EventTypeID"
+            #EventType = "ngModel"
+            >
+              <option *ngFor="let Type of EventTypes.Types" [value]="Type.EventTypeID">{{Type.Description}}</option>
+            </select>
+          </div>
+          <div *ngIf="EventType.touched && !EventType.valid" class="text-danger text-center">
+            this field is required
+          </div>
+          <br />
+         
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Event documents</span>
+            </div>
+             <input 
+             class="form-control" 
+             type="file"  
+             id="customFileLang"
+             name="EventDocument" 
+             accept="application/pdf"
+             #EventDocument = "ngModel"
+             [(ngModel)]="EventDocumentValue"
+             (change) = "onFileChange($event)"
+             >
+          </div>
+          <div *ngIf = "EventDocument.touched && !EventDocument.valid" class="text-danger text-center">
+            <div *ngIf="EventDocument.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="EventDocument.errors.filetype">Incorrect filetype. Please upload a PDF</div>
+          </div>
+        </div>
+        <!-- Modal Footer -->
+        <div class="modal-footer" style="border: none;">
+          <input type="submit" class="btn btn-primary" [disabled]="!AddEventForm.form.valid" value="Submit">
+          <button [hidden]="true" id="dismissModal" data-dismiss="modal"></button>
+        </div>
+      
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!--Sucessful Modal-->
+<div class="modal backdrop fade in" id="Success" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="icon-box modalicon">
+          <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+        </div>
+        <br>				
+      <h4 class="modal-title">Successful</h4>
+        <p style="text-align: center;">The event was updated successfully.</p>
+      </div>
+      <div class="modal-footer"style="border:none;">
+        <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<button [hidden]="true" data-target="#Success" data-toggle="modal" id="updateSuccess"></button>
+<!-- The Modal for update -->
+<div class="modal fade" id="UpdateModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form #UpdateEventForm = "ngForm" (ngSubmit)="submitUpdate()">
+
+      <!--Modal Header-->
+      <div class="modal-header" style="background-color: lightblue;">
+        <h4 class="modal-title" >UPDATE AN EVENT</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!--Modal body-->
+      <div class="modal-body">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Event Name</span>
+            </div>
+            <input 
+            type="text" 
+            class="form-control" 
+            id="EventName"
+            name="UpdateEventName"
+            #UpdateEventName="ngModel"
+            required
+            minlength="3"
+            maxlength="20"
+            pattern="^[a-zA-Z ]+$"
+            [(ngModel)]="thisEvent.EventName"
+            [value]  = "thisEvent.EventName"
+            >
+          </div>
+          <div *ngIf = "UpdateEventName.touched && !UpdateEventName.valid" class="text-danger text-center">
+            <div *ngIf="UpdateEventName.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="UpdateEventName.errors.minlength">A name should be at least {{UpdateEventName.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="UpdateEventName.errors.maxlength">The entered name is too long.</div>
+            <div *ngIf="UpdateEventName.errors.pattern">Please make use of only lower and upper case letters.</div>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Event Description</span>
+            </div>
+            <input 
+            type="text" 
+            class="form-control" 
+            id="UpdateEventDescription"
+            name="UpdateEventDescription"
+            #UpdateEventDescription="ngModel"
+            required
+            minlength="3"
+            maxlength="50"
+            pattern="^[a-zA-Z ]+$"
+            [(ngModel)]="thisEvent.Description"
+            >
+          </div>
+          <div *ngIf = "UpdateEventDescription.touched && !UpdateEventDescription.valid" class="text-danger text-center">
+            <div *ngIf="UpdateEventDescription.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="UpdateEventDescription.errors.minlength">A description should be at least {{UpdateEventDescription.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="UpdateEventDescription.errors.maxlength">The entered description is too long.</div>
+            <div *ngIf="UpdateEventDescription.errors.pattern">Please make use of only lower and upper case letters.</div>
+          </div>
+         
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Event Cost</span>
+            </div>
+            <input 
+            type="number" 
+            class="form-control" 
+            required
+            id="UpdateEventAmount"
+            name="UpdateEventAmount"
+            #UpdateEventAmount="ngModel"
+            (change)="ValidateUpdateAmount()"
+            [(ngModel)]="thisEvent.EventCost"
+            >
+          </div>
+          <div *ngIf="UpdateEventAmount.touched && !UpdateEventAmount.valid" class="text-danger text-center">
+            <div *ngIf="UpdateEventAmount.errors.required">This field is required</div>
+            <div *ngIf = "UpdateEventAmount.errors.min">This input should not be smaller than 1 </div>
+            <div *ngIf = "UpdateEventAmount.errors.max">This input exceeds 100 </div>
+            <div *ngIf = "UpdateEventAmount.errors.notinteger">This must be a whole number input</div>
+            <div *ngIf = "UpdateEventAmount.errors.decimalOver">the number may only have two decimals</div>
+          </div>
+        
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Event Date</span>
+            </div>
+            <input 
+            type="date" 
+            class="form-control" 
+            id="UpdateEventDate"
+            name="UpdateEventDate"
+            #UpdateEventDate="ngModel"
+            required
+            [(ngModel)]="thisEvent.EventDate"
+            (change)="ValidateUpdateDate()"
+            >
+          </div>
+          <div *ngIf="UpdateEventDate.touched && !UpdateEventDate.valid" class="text-danger text-center">
+            <div *ngIf="UpdateEventDate.errors.required">Please select a date value</div>
+            <div *ngIf="UpdateEventDate.errors.datelimit">Please select a date larger than todays date</div>
+          </div>
+          <br />
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Event type</span>
+            </div>
+            <select 
+            class="form-control"
+            id="UpdateEventType"
+            required
+            name="UpdateEventType"
+            [(ngModel)]= "thisEvent.EventTypeID"
+            #UpdateEventType = "ngModel"
+            >
+              <option *ngFor="let Type of EventTypes.Types" [value]="Type.EventTypeID">{{Type.Description}}</option>
+            </select>
+          </div>
+          <div *ngIf="UpdateEventType.touched && !EventType.valid" class="text-danger text-center">
+            this field is required
+          </div>
+          <br />
+         
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Event documents</span>
+            </div>
+             <input 
+             class="form-control" 
+             type="file"  
+             id="customFileLang"
+             name="UpdateEventDocument" 
+             accept="application/pdf"
+             #UpdateEventDocument = "ngModel"
+             [(ngModel)]="UpdateEventFile.filename"
+             (change) = "UpdateFileChange($event)"
+             [value] = "UpdateEventFile.filename"
+             >
+          </div>
+          <div *ngIf = "UpdateEventDocument.touched && !UpdateEventDocument.valid" class="text-danger text-center">
+            <div *ngIf="UpdateEventDocument.errors.required">This field is required, please enter a value</div>
+            <div *ngIf="UpdateEventDocument.errors.filetype">Incorrect filetype. Please upload a PDF</div>
+      
+          </div>
+          
+        
+      </div>
+      <div class="modal-footer" style="border: none;">
+        <input type="submit" class="btn btn-primary"  [disabled]="!UpdateEventForm.form.valid" value="Submit">
+        <button [hidden]="true" id="dismissModal" data-dismiss="modal"></button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<!-- Delete confirmation modal -->
+<div class="modal backdrop fade in" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="icon-box" style="align-content: center; margin: auto; text-align: center;">
+          <img src="https://img.icons8.com/office/80/000000/delete-view.png"/>
+        </div>
+        <br>				
+        <h4 class="modal-title">Are you sure?</h4>
+        <p style="text-align: center;">Do you really want to delete these records? This process cannot be undone.</p>
+			</div>
+      <div class="modal-footer"style="border:none;">
+				<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal" (click)="DeleteEvent()">Delete</button>
+			</div>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal for add  notice-->
+<div class="modal fade" id="AddNModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!--Modal Header -->
+      <div class="modal-header" style="background-color: lightblue;">
+        <h4 class="modal-title" >ADD A NEW NOTICE </h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--Modal body -->
+      <form #AddNoticeForm="ngForm" class="AddNoticeForm" (ngSubmit)= "onsubmitaddnotice()">
+        <div class="modal-body">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Notice Heading</span>
+            </div>
+            <input type="text" #NoticeHeading="ngModel" [(ngModel)]="noticeheading" (change) = "log(NoticeHeading)" name="noticeheading" placeholder="Header" class="form-control" id="NoticeHeading" aria-label="Username" required minlength="2" maxlength="20"> 
+          </div>
+          <div *ngIf="NoticeHeading.touched && !NoticeHeading.valid">
+            <div *ngIf = "NoticeHeading.errors.required" class="text-danger">This field is required</div>
+            <div *ngIf = "NoticeHeading.errors.minlength" class="text-danger">This input should be minimum {{NoticeHeading.errors.minlength.requiredLength}}</div>
+            <div *ngIf = "NoticeHeading.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Notice Content</span>
+            </div>
+            <textarea type="text" #NoticeContent="ngModel" [(ngModel)]="noticecontent" (change) = "log(NoticeContent)" name="noticecontent" placeholder="Content" class="form-control" id="NoticeContent" aria-label="Username" required minlength="2" maxlength="200"></textarea> 
+          </div>
+          <div *ngIf="NoticeContent.touched && !NoticeContent.valid">
+            <div *ngIf = "NoticeContent.errors.required" class="text-danger">This field is required</div>
+            <div *ngIf = "NoticeContent.errors.minlength" class="text-danger">This input should be minimum {{NoticeContent.errors.minlength.requiredLength}}</div>
+            <div *ngIf = "NoticeContent.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer"style="float-left; margin: auto; border:none;">
+          <input type=submit value="Submit" [disabled]="!AddNoticeForm.form.valid"  data-toggle="modal" data-target="#NoticeAddModal" class="btn btn-dark" id="closeModal">
+          <button type="button" class="btn btn-warning" id="dismiss" data-dismiss="modal" hidden="true"></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--Modal for Delete Confirmation-->
+<div class="modal backdrop fade in" id="DeleteNoticeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="icon-box modalicon">
+          <img src="https://img.icons8.com/office/80/000000/delete-view.png"/>
+        </div>
+        <br>				
+        <h4 class="modal-title">Are you sure?</h4>
+				<p style="text-align: center;">Do you really want to delete these records? This process cannot be undone.</p>
+			</div>
+      <div class="modal-footer"style="border:none;">
+				<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-danger" (click)="removeNotice()" data-target="#DeleteSuccessModal" data-toggle="modal" data-dismiss="modal">Delete</button>
+			</div>
+    </div>
+  </div>
+</div>
+
+  <!--noticeAddedModal-->
+  <div class="modal backdrop fade in" id="NoticeAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box modalicon">
+            <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+          </div>
+          <br>        
+          <h4 class="modal-title">Successful</h4>
+          <p style="text-align: center;">Notice Successfully Added.</p>
+        </div>
+        <div class="modal-footer"style="border:none;">
+          <button type="button" class="btn btn-info" data-dismiss="modal" >OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--DeleteSuccess Modal-->
+  <div class="modal backdrop fade in" id="DeleteSuccessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box modalicon">
+            <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+          </div>
+          <br>        
+          <h4 class="modal-title">Successful</h4>
+          <p style="text-align: center;">Notice Deleted Successfully.</p>
+        </div>
+        <div class="modal-footer"style="border:none;">
+          <button type="button" class="btn btn-info" data-dismiss="modal" (click)="refrechnotice()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   
+
+
+
+
+
+
+

@@ -1,0 +1,141 @@
+<!-- <app-admin-home></app-admin-home> -->
+<div class="container-fluid bg-light">
+  <h2 class="h2"> <img class="float-right imageclassname"  src="assets/Images/LogoGirl.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/Logo.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/LogoBoy.jpg" width="200px" height="90px"/> 
+    <a class="nav-link logotext" routerLink="/AdminHome">Canny Communicator</a></h2>
+  <h6 class="h6 indent">Admin Portal</h6>
+  <hr />
+
+  <!--Nav-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/FamilyAccountList">Family Accounts <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Employees
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="/EmployeeList">Manage Employees</a>
+              <a class="dropdown-item" routerLink="/AllocateEmployeeDuty">Manage employee Duties</a>
+            </div>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/ApplicationsList" >
+                Applications
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/MealPlan"> Meal Plans</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/SchoolFeePackage"> School Fees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/Document">Documentation</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Administration
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" routerLink="/EmployeeType">Manage Employee Types</a>
+                <a class="dropdown-item" routerLink="/Duties">Manage Duties</a>
+                <a class="dropdown-item" routerLink="/UserType">Manage User Types</a>
+                <a class="dropdown-item" routerLink="/Class">Manage Classes</a>
+                <a class="dropdown-item" routerLink="/ClassGrade">Manage Class Grades</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTypes">Manage Progress Report Types</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTestCategories">Manage Progress Report Test Categories</a>
+                <a class="dropdown-item" routerLink="/ExtraMural">Manage Extra-Murals</a>
+                <a class="dropdown-item" routerLink="/ExtraMuralCompany">Manage Extra-Mural Companies</a>
+                <a class="dropdown-item" routerLink="/FoodItem">Manage Food Items</a>
+              </div>
+            </li>
+        </ul>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown" class="float-right" style="padding-right: 75px;">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="nav-item nav-link float-right" routerLink="/ChangePassword">Change password</a>
+              <br>
+              <br>
+            </div>
+          </li>
+        </ul>
+      </div> 
+    </nav>
+       
+<div>
+    <h1>APPLICATIONS</h1>
+</div>
+<form #myForm="ngForm">
+<div class="d-flex justify-content-center">
+  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+      <button (click)="SubmitForm('New')"   type="submit"  id="New" name="New" autocomplete="off" class="btn btn-secondary blue" > New</button>
+  
+    
+      <button (click)="SubmitForm('WaitingList')"  type="submit"  id="WaitingList" name="WaitingList" autocomplete="off" class="btn btn-secondary blue"> Waiting List</button>
+ <div class="text-danger text-center" *ngIf="isresult==true">
+   <p>There are no applications for this selection. Please select another option.</p>
+ </div>
+  </div>
+</div>
+</form>
+<br>
+<div *ngFor="let g of grades" class="accordion" id="FamilyInfo">
+    <div class="card">
+        <div style="background-color:lightblue;" class="card-header" id="ParentInfo">
+            <h2 class="mb-0">
+            <button class="btn btn-block text-center " type="button" data-toggle="collapse" data-target="#table" aria-expanded="true" aria-controls="Parent">
+                <h4>{{g.ClassGradeName}}</h4>
+            </button>
+            </h2>
+        </div>
+        <div id="table" class="collapse" aria-labelledby="ParentInfo" data-parent="#FamilyInfo">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Surname</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Grade</th>
+                    <th scope="col">Package</th>
+                    <th scope="col">View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr  *ngFor ="let item of abc">
+                    <ng-container  *ngIf="item.Grade==g.ClassGradeName">         
+                      <td scope="row">{{item.Name}}</td>
+                      <td scope="row">{{item.Surname}}</td>
+                      <td scope="row">{{item.Age}}</td>
+                      <td scope="row">{{item.Grade}}</td>
+                      <td scope="row">{{item.Package}}</td>
+                      <td style="position: relative;" scope="row">
+                        <button  class="btn btn-light" style="padding:0.5cm;"(click)="ViewDetails(item.ID)"><i class="fas fa-info" style="color: rgb(68, 196, 255); font-size: 150%;"></i>
+                        <br>
+                          Details
+                        </button>        
+                      </td>   
+                    </ng-container> 
+                  </tr>        
+                </tbody>
+            </table>
+            <br>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+

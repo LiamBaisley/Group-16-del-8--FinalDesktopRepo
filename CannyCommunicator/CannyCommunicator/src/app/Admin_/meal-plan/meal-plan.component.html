@@ -1,0 +1,365 @@
+<div class="container-fluid bg-light">
+  <h2 class="h2"> <img class="float-right imageclassname"  src="assets/Images/LogoGirl.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/Logo.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/LogoBoy.jpg" width="200px" height="90px"/> 
+    <a class="nav-link logotext" routerLink="/AdminHome">Canny Communicator</a></h2>
+  <h6 class="h6 indent">Admin Portal</h6>
+  <hr />
+
+  <!--Nav-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/FamilyAccountList">Family Accounts <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Employees
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="/EmployeeList">Manage Employees</a>
+              <a class="dropdown-item" routerLink="/AllocateEmployeeDuty">Manage employee Duties</a>
+            </div>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/ApplicationsList" >
+                Applications
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/MealPlan"> Meal Plans</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/SchoolFeePackage"> School Fees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/Document">Documentation</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Administration
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" routerLink="/EmployeeType">Manage Employee Types</a>
+                <a class="dropdown-item" routerLink="/Duties">Manage Duties</a>
+                <a class="dropdown-item" routerLink="/UserType">Manage User Types</a>
+                <a class="dropdown-item" routerLink="/Class">Manage Classes</a>
+                <a class="dropdown-item" routerLink="/ClassGrade">Manage Class Grades</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTypes">Manage Progress Report Types</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTestCategories">Manage Progress Report Test Categories</a>
+                <a class="dropdown-item" routerLink="/ExtraMural">Manage Extra-Murals</a>
+                <a class="dropdown-item" routerLink="/ExtraMuralCompany">Manage Extra-Mural Companies</a>
+                <a class="dropdown-item" routerLink="/FoodItem">Manage Food Items</a>
+              </div>
+            </li>
+        </ul>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown" class="float-right" style="padding-right: 75px;">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="nav-item nav-link float-right" routerLink="/ChangePassword">Change password</a>
+              <br>
+              <br>
+            </div>
+          </li>
+        </ul>
+      </div> 
+    </nav>
+    <!-- End of nav bar -->
+  <h1>MEAL PLAN</h1>
+  <br>
+  <p class="text-center"> To add a new Meal Plan click here <button  class="btn btn-light" data-toggle="modal" data-target="#AddModal">  <i class="fas fa-plus"></i></button></p>
+  <br>
+  <!-- Table -->
+
+  <ng-container *ngFor="let item of abc" class="w-100 container-fluid">
+  <div class="table-responsive">
+    <table  *ngFor="let i of item" class="w-100 table"  >
+      <tr><h4 style="color:cadetblue;">{{i.Day}}</h4></tr>
+            <tr *ngFor="let j of i.Plan" class="text-center">
+              <td class="text-center" style="padding-top: 1cm;"><strong>{{j.Type}}</strong></td>
+              <td class="text-center"style="padding-top: 1cm;">{{j.food}}</td>
+              <td class="position-relative">
+              <button (click)="UpdateMealPlan(j.ID)" data-toggle="modal" data-target="#UpdateModal" class="btn btn-light lowpad" ><i class="fas fa-pencil-alt iclassblue"></i><br>Update</button>
+              <button (click)="Delete(j.ID)"  data-toggle="modal" data-target="#DeleteModal" class="btn btn-light lowpad"><i class="fas fa-eraser iclassred" ></i><br> Delete</button>
+              </td>
+              </tr>
+    </table>
+    </div>
+  </ng-container>
+  <!-- Delete Modal -->
+  <div class="modal backdrop fade in" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box text-center icobox">
+            <img src="https://img.icons8.com/office/80/000000/delete-view.png"/>
+          </div>
+          <br>				
+        <h4 class="modal-title text-center" >Are you sure?</h4>
+          <p class="text-center">Do you really want to delete these records? This process cannot be undone.</p>
+        </div>
+        <div class="modal-footer modalfoot text center">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+          <button (click)="DeleteConfirm()" type="button" data-toggle="modal" data-target="#DeleteSuccessModal" class="btn btn-danger" id="Delete" data-dismiss="modal">Delete</button>
+        </div>
+        </div>
+        </div>
+      </div>
+
+       <!--Success Modal-->
+       <div class="modal backdrop fade in" id="DeleteSuccessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="icon-box modalicon">
+                <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+              </div>
+              <br>				
+            <h4 class="modal-title">Successful</h4>
+              <p style="text-align: center;">Details Deleted Successfully.</p>
+            </div>
+            <div class="modal-footer"style="border:none;">
+              <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+            </div>
+            </div>
+            </div>
+          </div>
+
+      <!-- Add new record modal -->
+      <form #myForm="ngForm" (ngSubmit)="AddMealPlan()">
+      <div class="modal backdrop fade in" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+               
+              <div class="icon-box text-center icobox">
+                <img src="https://img.icons8.com/dusk/64/000000/add-property.png"/>
+              </div>				
+            <h4 class="modal-title text-center" >ADD MEAL PLAN</h4>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Date</span>
+                </div>
+                <input   id="dateinput" 
+                name="dateinput" 
+                #dateinput="ngModel" 
+                required   
+                [(ngModel)]="date"
+                type="date" class="form-control" placeholder="Date" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <!-- Check if the field was accessed and if it isnt valid -->
+              <div *ngIf="dateinput.touched && !dateinput.valid">
+                <!-- This displays if the date is required and there is no value present -->
+                  <div class="text-danger" *ngIf="dateinput.errors.required">Please select a date value</div>
+                  <!-- This displays if the date exceeds the limit for the date -->
+                 <div class="text-danger" *ngIf="dateinput.errors.datelimit">Please select a date from today onwards</div>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Day</span>
+                </div>
+                <select id="SelectListDay"
+                required
+                name="SelectListDay"
+                [(ngModel)]= "selectListValueDay"
+                #selectListDay = "ngModel"
+                 class="form-control">
+                 <option hidden>Day</option>
+                    <option *ngFor="let item of days" [value]="item.DayID">{{item.DayName}}</option>
+                  </select>     
+                 </div>
+                 <div  class="text-danger" *ngIf="selectListDay.touched && !selectListDay.valid">
+                  Please Select a day
+                </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Meal Plan Type</span>
+                </div>
+                <select id="SelectListType"
+                required
+                name="SelectListType"
+                [(ngModel)]= "selectListValueType"
+                #selectListType = "ngModel"
+                 class="form-control"  class="form-control"  >
+                 <option hidden>Meal Plan Type</option>
+                    <option *ngFor="let item of types" [value]="item.TypeID">{{item.TypeName}}</option>
+                 </select>               
+                </div>
+                <div class="text-danger" *ngIf="selectListType.touched && !selectListType.valid">
+                  Please select a Meal Plan Type
+                </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Foods</span>
+                </div>
+                <select id="SelectListFood1"
+                required
+                name="SelectListFood1"
+                [(ngModel)]= "selectListValueFood1"
+                #selectListFood1 = "ngModel"
+                 class="form-control"  class="form-control"  >
+                 <option hidden>Food</option>
+                  <option *ngFor="let item of foods" [value]="item.FoodID">{{item.FoodName}}</option>
+                  </select> 
+            </div>
+            <div class="text-danger" *ngIf="selectListFood1.touched && !selectListFood1.valid">
+              Please select a food
+            </div>
+            
+            </div>
+
+            <div class="modal-footer text-center modalfoot">
+                <button type="button" data-toggle="modal" data-dismiss="modal" data-target="#AddSuccessModal" class="btn btn-dark" [disabled]="!myForm.form.valid" (click)="AddMealPlan()" >Add</button>
+              <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+   
+            </div>
+            </div>
+            </div>
+          </div>
+        </form>
+                   
+        
+          <!-- Update a record modal -->
+          <form #myForm="ngForm" (ngSubmit)="SubmitForm()">
+            <div class="modal backdrop fade in" id="UpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-body">
+                     
+                    <div class="icon-box text-center icobox">
+                      <img src="https://img.icons8.com/plasticine/100/000000/approve-and-update.png"/>
+                    </div>				
+                  <h4 class="modal-title text-center" >UPDATE MEAL PLAN</h4>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Date</span>
+                      </div>
+                      <input id="dateinputUpdate" 
+                      name="dateinputUpdate" 
+                      #dateinputUpdate="ngModel" 
+                      required
+                      [(ngModel)]="date"
+                      [value]="date"
+                      type="date" class="form-control" placeholder="Date" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <!-- Check if the field was accessed and if it isnt valid -->
+         <div *ngIf="dateinputUpdate.touched && !dateinputUpdate.valid">
+          <!-- This displays if the date is required and there is no value present -->
+            <div class="text-danger" *ngIf="dateinputUpdate.errors.required">Please select a date value</div>
+            <!-- This displays if the date exceeds the limit for the date -->
+            <div class="text-danger" *ngIf="dateinputUpdate.errors.datelimit">Please select a date after todays date</div>
+        </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Day</span>
+                      </div>
+                      <select id="SelectListDayUpdate"
+                      required
+                      name="SelectListDayUpdate"
+                      [(ngModel)]= "selectListValueDay"
+                      #selectListDayUpdate = "ngModel"
+                       class="form-control"  >
+                       <option hidden>Day</option>
+                          <option *ngFor="let item of days" [value]="item.DayID">{{item.DayName}}</option>
+                        </select>     
+                       </div>
+                       <div  class="text-danger" *ngIf="selectListDayUpdate.touched && !selectListDay.valid">
+                        Please Select a day
+                      </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Meal Plan Type</span>
+                      </div>
+                      <select id="SelectListTypeUpdate"
+                      required
+                      name="SelectListTypeUpdate"
+                      [(ngModel)]= "selectListValueType"
+                      #selectListTypeUpdate = "ngModel"
+                       class="form-control"  class="form-control"  >
+                       <option hidden>Meal Plan Type</option>
+                          <option *ngFor="let item of types" [value]="item.TypeID"> {{item.TypeName}}</option>
+                          
+                       </select>               
+                      </div>
+                      <div class="text-danger" *ngIf="selectListTypeUpdate.touched && !selectListTypeUpdate.valid">
+                        Please select a Meal Plan Type
+                      </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Foods</span>
+                      </div>
+                      <select id="SelectListFood1Updated"
+                      required
+                      name="SelectListFood1Updated"
+                      [(ngModel)]= "selectListValueFood1"
+                      #selectListFood1Updated = "ngModel"
+                       class="form-control"  class="form-control"  >
+                       <option hidden>Food</option>
+                  <option *ngFor="let item of foods" [value]="item.FoodID">{{item.FoodName}}</option>
+                        </select> 
+      
+              
+                  </div>
+                  <div class="text-danger" *ngIf="selectListFood1Updated.touched && !selectListFood1Updated.valid">
+                    Please select a food
+                  </div>
+                  
+                  </div>
+      
+                  <div class="modal-footer text-center modalfoot">
+                      <button (click)="SubmitForm()" type="button" data-dismiss="modal" data-toggle="modal" data-target="#SuccessModal" class="btn btn-dark" [disabled]="!myForm.form.valid">Update</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+         
+                  </div>
+                  </div>
+                  </div>
+                </div>
+              </form>
+                 <!--Success Modal-->
+                 <div class="modal backdrop fade in" id="SuccessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <div class="icon-box modalicon">
+                          <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+                        </div>
+                        <br>				
+                      <h4 class="modal-title">Successful</h4>
+                        <p style="text-align: center;">Details Updated Successfully.</p>
+                      </div>
+                      <div class="modal-footer"style="border:none;">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+                      </div>
+                      </div>
+                      </div>
+                    </div>
+    
+                 <!--Success Modal-->
+                 <div class="modal backdrop fade in" id="AddSuccessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <div class="icon-box modalicon">
+                          <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+                        </div>
+                        <br>				
+                      <h4 class="modal-title">Successful</h4>
+                        <p style="text-align: center;">Details Added Successfully.</p>
+                      </div>
+                      <div class="modal-footer"style="border:none;">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+                      </div>
+                      </div>
+                      </div>
+                    </div>    
+
+

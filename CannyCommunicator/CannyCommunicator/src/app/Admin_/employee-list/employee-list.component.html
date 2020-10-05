@@ -1,0 +1,530 @@
+<div class="container-fluid bg-light">
+  <h2 class="h2"> <img class="float-right imageclassname"  src="assets/Images/LogoGirl.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/Logo.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/LogoBoy.jpg" width="200px" height="90px"/> 
+    <a class="nav-link logotext" routerLink="/AdminHome">Canny Communicator</a></h2>
+  <h6 class="h6 indent">Admin Portal</h6>
+  <hr />
+
+  <!--Nav-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/FamilyAccountList">Family Accounts <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Employees
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="/EmployeeList">Manage Employees</a>
+              <a class="dropdown-item" routerLink="/AllocateEmployeeDuty">Manage employee Duties</a>
+            </div>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/ApplicationsList" >
+                Applications
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/MealPlan"> Meal Plans</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/SchoolFeePackage"> School Fees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/Document">Documentation</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Administration
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" routerLink="/EmployeeType">Manage Employee Types</a>
+                <a class="dropdown-item" routerLink="/Duties">Manage Duties</a>
+                <a class="dropdown-item" routerLink="/UserType">Manage User Types</a>
+                <a class="dropdown-item" routerLink="/Class">Manage Classes</a>
+                <a class="dropdown-item" routerLink="/ClassGrade">Manage Class Grades</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTypes">Manage Progress Report Types</a>
+                <a class="dropdown-item" routerLink="/ProgressReportTestCategories">Manage Progress Report Test Categories</a>
+                <a class="dropdown-item" routerLink="/ExtraMural">Manage Extra-Murals</a>
+                <a class="dropdown-item" routerLink="/ExtraMuralCompany">Manage Extra-Mural Companies</a>
+                <a class="dropdown-item" routerLink="/FoodItem">Manage Food Items</a>
+              </div>
+            </li>
+        </ul>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown" class="float-right" style="padding-right: 75px;">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="nav-item nav-link float-right" routerLink="/ChangePassword">Change password</a>
+              <br>
+              <br>
+            </div>
+          </li>
+        </ul>
+      </div> 
+    </nav>
+
+
+  <!-- End of nav bar -->
+  <h1>TEACHERS</h1>
+  <br>
+  <p class="text-center">To add a new Teacher click here <button class="btn btn-light" data-toggle="modal" data-target="#AddTeacher">  <i class="fas fa-plus"></i></button></p>
+  <br>
+    
+
+  <!-- Delete a SupportStaff -->
+  <div class="modal backdrop fade in" id="DeleteModalSuppot" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box text-center icobox">
+              <img src="https://img.icons8.com/office/80/000000/delete-view.png"/>
+          </div>
+          <br>				
+          <h4 class="modal-title text-center">Are you sure?</h4>
+          <p class="text-center">Do you really want to delete these records? This process cannot be undone.</p>
+        </div>
+        <div class="modal-footer text-center modalfoot">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+          <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#SuccessModalD" class="btn btn-danger" (click)="removeSupport()">Delete</button>
+          <button type="button" class="btn btn-warning" id="dismissDS" data-dismiss="modal" hidden="true"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Delete a teacher -->
+  <div class="modal backdrop fade in" id="DeleteModalTeacher" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box text-center icobox">
+              <img src="https://img.icons8.com/office/80/000000/delete-view.png"/>
+          </div>
+          <br>				
+          <h4 class="modal-title text-center">Are you sure?</h4>
+          <p class="text-center">Do you really want to delete these records? This process cannot be undone.</p>
+        </div>
+        <div class="modal-footer text-center modalfoot">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+          <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#SuccessModalD" class="btn btn-danger" (click)="removeTeacher()">Delete</button>
+          <button type="button" class="btn btn-warning" id="dismissDT" data-dismiss="modal" hidden="true"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Add new Teacher -->
+  <div class="modal backdrop fade in" id="AddTeacher" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form class="DocTypeForm" #addTeacherForm="ngForm" (ngSubmit)= "onsubmitTeacher()">
+          <div class="modal-body">
+            <div class="icon-box text-center icobox" >
+              <img src="https://img.icons8.com/dusk/64/000000/add-property.png"/>
+            </div>				
+            <h4 class="modal-title text-center">ADD NEW TEACHER</h4>
+            
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Name</span>
+                </div>
+                <input type="text" #Tname="ngModel" [(ngModel)]="name" (change) = "log(Tname)" name="Tname" class="form-control" id="Tname" aria-label="Username" required minlength="2" maxlength="20" (change) = "log(Tname)"> 
+            </div>
+            <div *ngIf="Tname.touched && !Tname.valid">
+              <div *ngIf = "Tname.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "Tname.errors.minlength" class="text-danger">This input should be minimum {{Tname.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "Tname.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Surnname</span>
+                </div>
+                <input type="text" #Tsurname="ngModel" [(ngModel)]="surname" name="Tsurname" (change) = "log(Tsurname)" name="Tsurname" class="form-control" id="Tsurname"  required minlength="2" maxlength="20" (change) = "log(Tname)">
+            </div>
+            <div *ngIf="Tsurname.touched && !Tsurname.valid">
+              <div *ngIf = "Tsurname.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "Tsurname.errors.minlength" class="text-danger">This input should be minimum {{Tsurname.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "Tsurname.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Class</span>
+              </div>
+              <select id="Tclass" class="form-control" required name="Tclass" [(ngModel)]= "ClassVlaue" #Tclass = "ngModel" >
+                <option *ngFor ="let class of classlist" value={{class.ClassID}} >{{class.Name}}</option>
+              </select>
+            </div>
+            <div *ngIf="Tclass.touched && !Tclass.valid">
+              <div *ngIf = "Tclass.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "Tclass.errors.minlength" class="text-danger">This input should be minimum {{Tclass.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "Tclass.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+            </div> 
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Contact Number</span>
+                </div>
+                <input type="text" #tnumber="ngModel" [(ngModel)]="number" (change) = "log(tnumber)" name="Ttnumber" class="form-control" id="Tname" aria-label="Username" required minlength="10" maxlength="10" (change) = "log(tnumber)" pattern="[0-9 ]{10}">
+            </div>
+            <div *ngIf="tnumber.touched && !tnumber.valid">
+              <div *ngIf = "tnumber.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "tnumber.errors.minlength" class="text-danger">This input should be minimum {{Tname.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "tnumber.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+              <div *ngIf = "tnumber.errors.pattern" class="text-danger">This input is of the wrong format </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Email Address </span>
+                </div>
+                <input type="email" #temail="ngModel" [(ngModel)]="email" (change) = "log(temail)" name="temail" class="form-control" id="temail" aria-label="Username" required minlength="2" maxlength="20" (change) = "log(temail)" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+            </div>
+            <div *ngIf="temail.touched && !temail.valid">
+              <div *ngIf = "temail.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "temail.errors.minlength" class="text-danger">This input should be minimum {{temail.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "temail.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+              <div *ngIf = "temail.errors.pattern" class="text-danger">This input is of the wrong format </div>
+            </div>
+          </div>
+          <div class="modal-footer"style="align-content: center; margin: auto; border:none;">
+            <input type=submit value="Submit" [disabled]="!addTeacherForm.form.valid"  data-toggle="modal"  data-target="#SuccessModal" class="btn btn-dark" id="closeModal">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-warning" id="dismissAT" data-dismiss="modal" hidden="true"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br>
+
+
+  <!-- Update a record modal -->
+  <div class="modal backdrop fade in" id="TUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form #UpdateTeacherForm="ngForm" form class="DocTypeForm" #UpdateTeacherForm="ngForm" (ngSubmit)= "onsubmitTeacherUpdate()">
+          <div class="modal-body">
+            <div class="icon-box text-center icobox">
+              <img src="https://img.icons8.com/plasticine/100/000000/approve-and-update.png"/>
+            </div>				
+            <h4 class="modal-title text-center">UPDATE TEACHER</h4>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Name</span>
+              </div>
+              <input type="text" #UTname="ngModel" [(ngModel)]="uname" (change) = "log(UTname)" name="uname" class="form-control" id="UTname" aria-label="Username" required minlength="2" maxlength="20" (change) = "log(UTname)"> 
+            </div>
+            <div *ngIf="UTname.touched && !UTname.valid">
+              <div *ngIf = "UTname.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "UTname.errors.minlength" class="text-danger">This input should be minimum {{UTname.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "UTname.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Surnname</span>
+                </div>
+                <input type="text" #UTsurname="ngModel" [(ngModel)]="usurname" name="usurname" (change) = "log(UTsurname)" name="UTsurname" class="form-control" id="UTsurname"  required minlength="2" maxlength="20" (change) = "log(UTsurname)">
+            </div>
+            <div *ngIf="UTsurname.touched && !UTsurname.valid">
+              <div *ngIf = "UTsurname.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "UTsurname.errors.minlength" class="text-danger">This input should be minimum {{UTsurname.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "UTsurname.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Class</span>
+              </div>
+              <select id="UTclass" class="form-control" required name="uClassID" [(ngModel)]= "uClassID" #UTclass = "ngModel" >
+                <option *ngFor ="let class of classlist" value={{class.ClassID}} >{{class.Name}}</option>
+              </select>
+            </div>
+            <div *ngIf="UTclass.touched && !UTclass.valid">
+              <div *ngIf = "UTclass.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "UTclass.errors.minlength" class="text-danger">This input should be minimum {{UTclass.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "UTclass.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+            </div> 
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Contact Number</span>
+                </div>
+                <input type="text" #Unumber="ngModel" [(ngModel)]="unumber" (change) = "log(Unumber)" name="unumber" class="form-control" id="Unumber" aria-label="Username" required minlength="10" maxlength="10" (change) = "log(tnumber)" pattern="[0-9 ]{10}">
+            </div>
+            <div *ngIf="Unumber.touched && !Unumber.valid">
+              <div *ngIf = "Unumber.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "Unumber.errors.minlength" class="text-danger">This input should be minimum {{Unumber.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "Unumber.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+              <div *ngIf = "Unumber.errors.pattern" class="text-danger">This input is of the wrong format </div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Email Address </span>
+              </div>
+              <input type="email" #UTemail="ngModel" [(ngModel)]="uemail" (change) = "log(UTemail)" name="UTnumber" class="form-control" id="UTnumber" aria-label="Username" required minlength="2" maxlength="20" (change) = "log(UTemail)" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+            </div>
+            <div *ngIf="UTemail.touched && !UTemail.valid">
+              <div *ngIf = "UTemail.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "UTemail.errors.minlength" class="text-danger">This input should be minimum {{UTemail.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "UTemail.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+              <div *ngIf = "UTemail.errors.pattern" class="text-danger">This input is of the wrong format </div>
+            </div>
+          </div>
+          <div class="modal-footer"style="align-content: center; margin: auto; border:none;">
+            <input type=submit value="Update" [disabled]="!UpdateTeacherForm.form.valid"  data-toggle="modal"  data-target="#SuccessModal" class="btn btn-dark" id="closeModal">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-warning" id="dismissUT" data-dismiss="modal" hidden="true"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <table class="table" style="width:100%">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Class</th>
+        <th scope="col">Contact Number</th>
+        <th scope="col">Email Address</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody *ngFor ="let teachers of teacherlist">
+      <tr >
+        <td>{{teachers.Name}}</td>
+        <td>{{teachers.Surname}}</td> 
+        <td>{{teachers.Class}}</td> 
+        <td>{{teachers.Contactnumber}}</td> 
+        <td>{{teachers.EmailAddress}}</td> 
+        <td style="position: relative;">
+          <button data-toggle="modal" data-target="#TUpdateModal" class="btn btn-light lowpad" (click)="updateteacher(teachers.EmailAddress,teachers.Name,teachers.Contactnumber,teachers.Surname,teachers.TeacherID)"><i class="fas fa-pencil-alt iclassblue" style="color: teal;font-size: 150%;"></i><br>Update</button>
+          <button data-toggle="modal" data-target="#DeleteModalTeacher" (click)="getTeacherID(teachers.TeacherID)" class="btn btn-light" style="padding:0.5cm;" ><i class="fas fa-eraser" style="color: red; font-size: 150%;"></i>
+            <br>
+            Delete
+          </button> 
+        </td>
+      </tr>         
+    </tbody>
+  </table>
+
+
+  <!-- Support Staff -->
+  <h1>SUPPORT STAFF</h1>
+  <br>
+  <p class="text-center">To add a new Teacher click here <button class="btn btn-light" data-toggle="modal" data-target="#AddSupportStaff">  <i class="fas fa-plus"></i></button></p>
+  <br>
+
+
+  <!-- Table -->
+  <table class="table" style="width:100%">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Role</th>
+        <th scope="col">Number</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody *ngFor ="let suppstaff of supportstafflist">
+      <tr >
+        <td>{{suppstaff.Name}}</td>
+        <td>{{suppstaff.Surname}}</td> 
+        <td>{{suppstaff.Employeetype}}</td> 
+        <td>{{suppstaff.ContactNumber}}</td> 
+        <td style="position: relative;">
+          <button data-toggle="modal" data-target="#UpdateModal" class="btn btn-light lowpad" (click)=onupdateSupport(suppstaff.Name,suppstaff.Surname,suppstaff.EmployeeTypeID,suppstaff.ContactNumber,suppstaff.SupportStaffID)><i class="fas fa-pencil-alt iclassblue" style="color: teal;font-size: 150%;" ></i><br>Update</button>
+          <button data-toggle="modal" (click)="getSuppremoveID(suppstaff.SupportStaffID)" data-target="#DeleteModalSuppot" class="btn btn-light" style="padding:0.5cm;" ><i class="fas fa-eraser" style="color: red; font-size: 150%;"></i>
+            <br>
+            Delete
+          </button> 
+        </td>
+      </tr>         
+    </tbody>
+  </table>
+
+  <!-- AddSupport Staff-->
+  <div class="modal backdrop fade in" id="AddSupportStaff" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form class="DocTypeForm" #addSupportStaffForm="ngForm" (ngSubmit)= "onsubmitstaff()"> 
+          <div class="modal-body">
+            <div class="icon-box text-center icobox" >
+              <img src="https://img.icons8.com/dusk/64/000000/add-property.png"/>
+            </div>				
+            <h4 class="modal-title text-center">ADD NEW SUPPORT STAFF MEMBER</h4>    
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Name</span>
+              </div>
+              <input type="text" #Sname="ngModel" [(ngModel)]="sname" (change) = "log(Sname)" name="sname" class="form-control" id="Sname" aria-label="Username" required minlength="2" maxlength="20" (change) = "log(Sname)"> 
+            </div>
+            <div *ngIf="Sname.touched && !Sname.valid">
+              <div *ngIf = "Sname.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "Sname.errors.minlength" class="text-danger">This input should be minimum {{Sname.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "Sname.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+            </div>
+            <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Surname</span>
+            </div>
+            <input type="text" #Ssurname="ngModel" [(ngModel)]="ssurname" name="ssurname" (change) = "log(Ssurname)" name="Ssurname" class="form-control" id="Ssurname"  required minlength="2" maxlength="20" (change) = "log(Ssurname)">
+            </div>
+            <div *ngIf="Ssurname.touched && !Ssurname.valid">
+              <div *ngIf = "Ssurname.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "Ssurname.errors.minlength" class="text-danger">This input should be minimum {{Ssurname.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "Ssurname.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Role</span>
+              </div>
+              <select id="Srole" class="form-control" required name="srole" [(ngModel)]= "srole" #Sclass = "ngModel" (change) = "log(srole)">
+                <option *ngFor ="let suppstafftype of supportstaftype" value={{suppstafftype.EmployeeTypeID}}>{{suppstafftype.Type}}</option>
+              </select>
+            </div>      
+            <div *ngIf="Sclass.touched && !Sclass.valid">
+              <div *ngIf = "Sclass.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "Sclass.errors.minlength" class="text-danger">This input should be minimum {{Sclass.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "Sclass.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+            </div> 
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"> Phone Number</span>
+              </div>
+              <input type="text" #Snumber="ngModel" [(ngModel)]="snumber" (change) = "log(Snumber)" name="snumber" class="form-control" id="Snumber" aria-label="Username" required minlength="2" maxlength="10" (change) = "log(Snumber)">
+            </div>
+            <div *ngIf="Snumber.touched && !Snumber.valid">
+              <div *ngIf = "Snumber.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "Snumber.errors.minlength" class="text-danger">This input should be minimum {{Snumber.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "Snumber.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+              <div *ngIf = "Snumber.errors.pattern" class="text-danger">This input is of the wrong format </div>
+            </div>
+          </div>
+          <div class="modal-footer"style="align-content: center; margin: auto; border:none;">
+            <input type=submit value="Submit" [disabled]="!addSupportStaffForm.form.valid"  data-toggle="modal"  data-target="#SuccessModal" class="btn btn-dark" id="closeModal">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-warning" id="dismissAS" data-dismiss="modal" hidden="true"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update a record modal -->
+  <div class="modal backdrop fade in" id="UpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form class="DocTypeForm" #UpdateSupportStaffForm="ngForm" (ngSubmit)= "onsubmitstaffupdate()">
+          <div class="modal-body">
+            <div class="icon-box text-center icobox">
+              <img src="https://img.icons8.com/plasticine/100/000000/approve-and-update.png"/>
+            </div>				
+            <h4 class="modal-title text-center">UPDATE EMPLOYEE</h4>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Name</span>
+              </div>
+              <input type="text" #USname="ngModel" [(ngModel)]="usname" (change) = "log(USname)" name="usname" class="form-control" id="USname" aria-label="Username" required minlength="2" maxlength="20" (change) = "log(USname)"> 
+            </div>
+            <div *ngIf="USname.touched && !USname.valid">
+              <div *ngIf = "USname.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "USname.errors.minlength" class="text-danger">This input should be minimum {{USname.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "USname.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Surname</span>
+                </div>
+                <input type="text" #USsurname="ngModel" [(ngModel)]="ussurname" value="suppstaff.Name" name="ssurname" (change) = "log(USsurname)" name="ussurname" class="form-control" id="USsurname"  required minlength="2" maxlength="20">
+            </div>
+            <div *ngIf="USsurname.touched && !USsurname.valid">
+              <div *ngIf = "USsurname.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "USsurname.errors.minlength" class="text-danger">This input should be minimum {{USsurname.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "USsurname.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Role</span>
+              </div>
+              <select id="USrole" class="form-control" required name="usrole" [(ngModel)]= "usrole" #USrole = "ngModel" >
+                <option *ngFor ="let suppstafftype of supportstaftype" value={{suppstafftype.EmployeeTypeID}}>{{suppstafftype.Type}}</option>
+              </select>
+            </div>
+            <div *ngIf="USrole.touched && !USrole.valid">
+              <div *ngIf = "USrole.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "USrole.errors.minlength" class="text-danger">This input should be minimum {{USrole.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "USrole.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+            </div> 
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Contact Number </span>
+              </div>
+              <input type="email" #USnumber="ngModel" [(ngModel)]="usnumber" (change) = "log(USnumber)" name="usnumber" class="form-control" id="USnumber" aria-label="Username" required minlength="2" maxlength="10">
+            </div>
+            <div *ngIf="USnumber.touched && !USnumber.valid">
+              <div *ngIf = "USnumber.errors.required" class="text-danger">This field is required</div>
+              <div *ngIf = "USnumber.errors.minlength" class="text-danger">This input should be minimum {{USnumber.errors.minlength.requiredLength}}</div>
+              <div *ngIf = "USnumber.errors.maxlength" class="text-danger">This input exceeds the length limit </div>
+              <div *ngIf = "USnumber.errors.pattern" class="text-danger">This input is of the wrong format </div>
+            </div>
+          </div>
+          <div class="modal-footer"style="align-content: center; margin: auto; border:none;">
+            <input type=submit value="Submit" [disabled]="!UpdateSupportStaffForm.form.valid"  data-toggle="modal"  data-target="#SuccessModal" class="btn btn-dark" id="closeModal">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-warning" id="dismissUS" data-dismiss="modal" hidden="true"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--Success Modal-->
+  <div class="modal backdrop fade in" id="SuccessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box modalicon">
+            <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+          </div>
+          <br>				
+        <h4 class="modal-title">Successful</h4>
+          <p style="text-align: center;">Employee Information Saved</p>
+        </div>
+        <div class="modal-footer"style="border:none;">
+          <button type="button" class="btn btn-info" data-dismiss="modal" (click)="refrech()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal backdrop fade in" id="SuccessModalD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box modalicon">
+            <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+          </div>
+          <br>				
+          <h4 class="modal-title">Successful</h4>
+          <p style="text-align: center;">Employee Information Removed</p>
+        </div>
+        <div class="modal-footer"style="border:none;">
+          <button type="button" class="btn btn-info" data-dismiss="modal" (click)="refrech()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

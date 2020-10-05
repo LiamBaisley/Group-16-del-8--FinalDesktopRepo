@@ -1,0 +1,25 @@
+.cardcontainer{
+    width: 20rem;
+    padding-top: 1rem; 
+    padding-right: 1rem;
+     border: none;
+}
+
+.PCal{
+    max-width: 65%;
+}
+
+@media only screen and (max-width: 970px){
+    .PCal{
+        min-width: 100%;
+    }
+
+    .cardcontainer{
+        min-width: 100%;
+        padding-bottom: 3rem;
+    }
+}
+
+.cardnotif{
+    width: 100%;
+}

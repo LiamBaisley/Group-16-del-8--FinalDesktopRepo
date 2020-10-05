@@ -1,0 +1,237 @@
+<!-- Navbar -->
+<div class="container-fluid bg-light">
+  <h2 class="h2">
+    <img class="float-right imageclassname"  src="assets/Images/LogoGirl.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/Logo.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/LogoBoy.jpg" width="200px" height="90px"/> 
+    <a class="nav-link logotext" routerLink="/TeacherHome">Canny Communicator</a></h2>
+  <h6 class="h6 indent">Teacher Portal</h6>
+  <hr />
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" routerLink="/PupilAbsences">Absences<span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" routerLink="/CaptureReports">Progress Reports</a>
+      </div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown" class="float-right" style="padding-right: 75px;">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Account
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="nav-item nav-link float-right" routerLink="/ChangePassword">Change password</a>
+            <br>
+            <br>
+          </div>
+        </li>
+      </ul>
+    </div> 
+  </nav>
+
+ 
+  </div>
+
+    <hr />
+  <h1>PUPIL ABSENCES</h1>
+  <br>
+  <div class="container-fluid text-center">
+    <label class="text-center">Choose a class to mark pupil absent :</label>
+    <br />
+    <div class="container">
+    <select required
+    name="SelectList"
+    [(ngModel)]= "SelectListClasses"
+    #selectList = "ngModel" class="form-control" id="SelectClass" aria-placeholder="Select a class">
+    <option  *ngFor="let item of classes" [value]="item.ClassID">{{item.ClassName}}</option>
+    </select>
+    <br>
+    <div  *ngIf="selectList.touched && !selectList.valid" class="text-danger">
+      Please select a class
+    </div>
+    <div  *ngIf="isresult==true" class="text-danger">
+      There are no children in this class. Please select another class.
+    </div>
+    <div>
+      <button [disabled]="!selectList.valid" (click)="ViewClass(1)" class=" btn btl-light">
+        <img src="https://img.icons8.com/cotton/64/000000/ingredients-list.png"/>
+        <br>
+        View Classlist</button>  
+        <button [disabled]="!selectList.valid" (click)="ViewClass(2)" class=" btn btl-light">
+          <img src="https://img.icons8.com/wired/64/000000/id-not-verified.png"/>
+          <br>
+          View Absent Classlist</button>  
+        </div>
+    </div>
+    <br />
+
+ 
+    <br />
+    <br />
+<h2>Class List</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+               
+                <th>Present/Absent</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of children">
+              <td>{{item.ChildName}}</td>
+              <td>{{item.Surname}}</td>
+          <td style="position: relative;">
+                 <button (click)="MarkPresent(item.AbsentID)" *ngIf="stats =='Absent'" class="btn btn-light" data-toggle="modal" data-target="#PresentModal"   ><i class=" fas fa-check" style="color: rgb(58, 236, 13);font-size: 100%; ">  </i>
+                    <br>Mark Present</button>
+                    <button (click)="UpdateAbsentID(item.AbsentID)" *ngIf="stats =='Absent'" data-toggle="modal" data-target="#UpdateAbsentModal" class="btn btn-light"  ><i class="fas fa-pencil-alt" style="color: teal;font-size: 100%; ">  </i>
+                      <br>Update Absence</button>
+                    <button (click)="MarkAbsent(item.ChildClassYearID)" *ngIf="stats =='Normal'" data-toggle="modal" data-target="#AbsentModal" class="btn btn-light"  ><i class="fas fa-pencil-alt" style="color: teal;font-size: 100%; ">  </i>
+                        <br>Mark Absent</button>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+
+<!--Absent Modal Criertia -->
+<form #myForm="ngForm">
+<div class="modal backdrop fade in" id="AbsentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+         
+          <div class="icon-box" style="align-content: center; margin: auto; text-align: center;">
+            <img src="https://img.icons8.com/color/48/000000/attendance-mark.png"/>
+          </div>                
+        <h4 class="modal-title" style="text-align: center;">REASON FOR PUPIL ABSENCE</h4>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"> Reason for absence</span>
+            </div>
+            <input type="text"
+            type="text" 
+   id="TextInput" 
+   name="TextInput" 
+   #TextInput="ngModel" 
+   required
+   minlength="3"
+   maxlength="20"
+   pattern="[A-Za-z\s]*" 
+   [(ngModel)]="Reason"
+    class="form-control" placeholder="Description" aria-label="Description" aria-describedby="basic-addon1">
+          </div>
+          <div class="text-danger" *ngIf="TextInput.touched && !TextInput.valid">
+            <!-- This error is for if the field is empty but it is required -->
+              <div *ngIf="TextInput.errors.required">Please enter a reason for absence</div>
+              <!-- This error is for if the input is shorter than the minimum length -->
+              <div *ngIf = "TextInput.errors.minlength">The reason should be minimum {{TextInput.errors.minlength.requiredLength}}</div>
+              <!-- This error is for if the input is longer than the maximum length -->
+              <div *ngIf = "TextInput.errors.maxlength">The reason exceeds the length limit </div>
+                 <!-- This error checks if  there's integers in the string -->
+                 <div *ngIf = "!TextInput.errors.pattern">The reason should not include any numbers. </div>
+          </div>
+     
+        </div>
+       <!-- -->
+        <div class="modal-footer"style="align-content: center; margin: auto; border:none;">
+            <button [disabled]="!myForm.form.valid" data-dismiss="modal" type="button"data-toggle="modal" data-target="#SuccessModal"  class="btn btn-success" (click)="SubmitForm()">Save</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+         
+        </div>
+        </div>
+        </div>
+      </div>  
+    </form>
+
+<!--Update-->
+    <form #myForm="ngForm">
+      <div class="modal backdrop fade in" id="UpdateAbsentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+               
+                <div class="icon-box" style="align-content: center; margin: auto; text-align: center;">
+                  <img src="https://img.icons8.com/color/48/000000/attendance-mark.png"/>
+                </div>                
+              <h4 class="modal-title" style="text-align: center;">REASON FOR PUPIL ABSENCE</h4>
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"> Reason for absence</span>
+                  </div>
+                  <input type="text"
+                  type="text" 
+         id="TextInput" 
+         name="TextInput" 
+         #TextInput="ngModel" 
+         required
+         minlength="3"
+         maxlength="20"
+         pattern="[A-Za-z\s]*" 
+         [(ngModel)]="Reason"
+          class="form-control" placeholder="Description" aria-label="Description" aria-describedby="basic-addon1">
+                </div>
+                <div class="text-danger" *ngIf="TextInput.touched && !TextInput.valid">
+                  <!-- This error is for if the field is empty but it is required -->
+                    <div *ngIf="TextInput.errors.required">Please enter a reason for absence</div>
+                    <!-- This error is for if the input is shorter than the minimum length -->
+                    <div *ngIf = "TextInput.errors.minlength">The reason should be minimum {{TextInput.errors.minlength.requiredLength}}</div>
+                    <!-- This error is for if the input is longer than the maximum length -->
+                    <div *ngIf = "TextInput.errors.maxlength">The reason exceeds the length limit </div>
+                       <!-- This error checks if  there's integers in the string -->
+                       <div *ngIf ="!TextInput.errors.pattern">The reason should not include any numbers. </div>
+                </div>
+           
+              </div>
+             <!---->
+              <div class="modal-footer"style="align-content: center; margin: auto; border:none;">
+                  <button [disabled]="!myForm.form.valid" data-dismiss="modal" type="button"data-toggle="modal" data-target="#SuccessModal"  class="btn btn-success" (click)="Update()">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+               
+              </div>
+              </div>
+              </div>
+            </div>  
+          </form>
+         <!--Success Absent Modal-->
+ <div class="modal backdrop fade in" id="SuccessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box modalicon">
+            <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+          </div>
+          <br>              
+        <h4 class="modal-title">Successful</h4>
+          <p style="text-align: center;">Pupil successfully marked absent.</p>
+        </div>
+        <div class="modal-footer"style="border:none;">
+          <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+        </div>
+        </div>
+        </div>
+      </div>
+
+               <!--Success Present Modal-->
+ <div class="modal backdrop fade in" id="PresentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="icon-box modalicon">
+          <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+        </div>
+        <br>              
+      <h4 class="modal-title">Successful</h4>
+        <p style="text-align: center;">Pupil successfully marked present.</p>
+      </div>
+      <div class="modal-footer"style="border:none;">
+        <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+      </div>
+      </div>
+      </div>
+    </div>

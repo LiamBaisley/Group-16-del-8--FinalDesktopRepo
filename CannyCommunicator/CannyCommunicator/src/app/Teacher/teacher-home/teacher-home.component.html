@@ -1,0 +1,160 @@
+<!-- Navbar -->
+<div class="container-fluid bg-light">
+  <h2 class="h2">
+    <img class="float-right imageclassname"  src="assets/Images/LogoGirl.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/Logo.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/LogoBoy.jpg" width="200px" height="90px"/> 
+    <a class="nav-link logotext" routerLink="/TeacherHome">Canny Communicator</a></h2>
+  <h6 class="h6 indent">Teacher Portal</h6>
+  <hr />
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" routerLink="/PupilAbsences">Absences<span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" routerLink="/CaptureReports">Progress Reports</a>
+        <a class="nav-item nav-link" routerLink="/TeacherClassList">Class List</a>
+      </div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown" class="float-right" style="padding-right: 75px;">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Account
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="nav-item nav-link float-right" routerLink="/ChangePassword">Change password</a>
+            <br>
+            <a class="nav-item nav-link float-right" (click)="logout()">Logout</a>
+            <br>
+          </div>
+        </li>
+      </ul>
+    </div> 
+  </nav>
+
+ 
+  </div>
+  
+  <br>
+ <!-- Calendar component -->
+<div class="container-fluid float-left">
+  <div class="row text-center">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+        >
+          Previous
+        </div>
+        <div
+          class="btn btn-outline-secondary"
+          mwlCalendarToday
+          [(viewDate)]="viewDate"
+        >
+          Today
+        </div>
+        <div
+          class="btn btn-primary"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewChange) = "getEvents()"
+                  >
+          Next
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3>
+        {{ viewDate | calendarDate:(view +
+        'ViewTitle'):'en':weekStartsOn }}
+      </h3>
+    </div>
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          (click)="view = CalendarView.Month"
+          [class.active]="view === 'month'"
+        >
+          Month
+        </div>
+        <div
+          class="btn btn-primary"
+          (click)="view = CalendarView.Week"
+          [class.active]="view === 'week'"
+        >
+          Week
+        </div>
+        <div
+          class="btn btn-primary"
+          (click)="view = CalendarView.Day"
+          [class.active]="view === 'day'"
+        >
+          Day
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="'month'"
+      [viewDate]="viewDate"
+      [events]="events"
+      (eventClicked)="getDetails($event.event.meta)"
+    >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="'week'"
+      [viewDate]="viewDate"
+      [events]="events"
+      (eventClicked)="getDetails($event.event.meta)"
+    >
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="'day'"
+      [viewDate]="viewDate"
+      [events]="events"
+      (eventClicked)="getDetails($event.event.meta)"
+    >
+    </mwl-calendar-day-view>
+  </div>
+  
+</div>
+
+<ng-template #modalContent let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">{{ModalData.Title}}</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      Date:
+      <pre>{{ ModalData.Date }}</pre>
+    </div>
+    <div>
+      Details:
+      <pre>{{ ModalData.Description}}</pre>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DownloadDocument" (click)="DownloadDocument()">
+      Download Documents
+    </button>
+    <button type="button" class="btn btn-primary" (click)="close()">
+      Close
+    </button>
+  </div>
+</ng-template>
+<!--  -->

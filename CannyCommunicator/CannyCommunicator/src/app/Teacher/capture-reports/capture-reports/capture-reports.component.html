@@ -1,0 +1,318 @@
+<!-- Navbar -->
+<div class="container-fluid bg-light">
+  <h2 class="h2">
+    <img class="float-right imageclassname"  src="assets/Images/LogoGirl.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/Logo.jpg" width="200px" height="90px"/>
+    <img class="float-right imageclassname"  src="assets/Images/LogoBoy.jpg" width="200px" height="90px"/> 
+    <a class="nav-link logotext" routerLink="/TeacherHome">Canny Communicator</a></h2>
+  <h6 class="h6 indent">Teacher Portal</h6>
+  <hr />
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" routerLink="/PupilAbsences">Absences<span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" routerLink="/CaptureReports">Progress Reports</a>
+      </div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown" class="float-right" style="padding-right: 75px;">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Account
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="nav-item nav-link float-right" routerLink="/ChangePassword">Change password</a>
+            <br>
+            <br>
+          </div>
+        </li>
+      </ul>
+    </div> 
+  </nav>
+
+ 
+  </div>
+
+
+    <hr />
+    <h1>PROGRESS REPORTS</h1>
+    <br>
+    <div class="container-fluid text-center">
+      <label class="text-center">Choose a class to capture Progress Report :</label>
+      <br />
+      <div class="container">
+      <select
+      required
+      name="SelectList"
+      [(ngModel)]= "SelectListClasses"
+      #selectList = "ngModel"
+      class="form-control" id="SelectClass" aria-placeholder="Select a class">
+          <option  *ngFor="let item of classes" [value]="item.ClassID">{{item.ClassName}}</option>
+      </select>
+      <br>
+      <button [disabled]="!selectList.valid"   (click)="ViewClass()" class=" btn btl-light">
+        <img src="https://img.icons8.com/cotton/64/000000/ingredients-list.png"/>
+        <br>
+        View Classlist</button>
+        <div   class="text-danger" *ngIf="selectList.touched && !selectList.valid">
+          Please Select a class
+        </div> 
+        <div *ngIf="isclass==true"  class="text-danger" >
+          There are no children in this class yet. Please select another class
+        </div> 
+      </div>
+      <br />
+      <br />
+      <br />
+  <h2>Class List</h2>
+      <table class="table">
+          <thead>
+              <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Capture Report</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item of children">
+                  <td>{{item.ChildName}}</td>
+                  <td>{{item.Surname}}</td>
+                  <td class="text-center">
+                   <button  (click)="SetID(item.ChildID)" data-toggle="modal" data-target="#CapturePR" class="btn btn-light" style="padding:0.5cm;" ><i class="fas fa-graduation-cap" style="color: rgb(18, 189, 166);font-size: 150%; ">  </i>
+                      <br>Capture Progress Report</button>
+                      <button  (click)="SetID(item.ChildID)" data-toggle="modal" data-target="#ChooseType" class="btn btn-light" style="padding:0.5cm;" ><i class="fas fa-pencil-alt" style="color: teal;font-size: 150%; ">  </i>
+                          <br>Update Progress Report</button>       
+              </tr>
+
+          </tbody>
+      </table>
+    </div>
+    
+  
+  <!--CapturePR Modal Criertia -->
+  <form #myForm="ngForm" (ngSubmit)="SubmitForm()">
+  <div class="modal backdrop fade in" id="CapturePR" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+              
+            <div class="icon-box" style="align-content: center; margin: auto; text-align: center;">
+              <img src="https://img.icons8.com/nolan/64/report-card.png"/>
+            </div>        
+          <h4 class="modal-title" style="text-align: center;">CAPTURE PROGRESS REPORT</h4>
+          <br>
+          <div class="container text-center">
+              <label>{{date | date:'yyyy/MM/dd'}}</label>
+          </div>
+         <H3>RESULTS</H3>
+<div class="row container" *ngFor="let item of reportinfo">
+  <br>
+            <h6>{{item.Category}}</h6>
+            <br>
+            <div *ngFor="let i of item.PRR" >
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text text-wrap" for="inputGroupSelect01">{{i.Description}}</label>
+              </div>
+              <input type="number" 
+              id="Mark" 
+              name="Mark" 
+              #NumInput4
+              required
+              (change)="Capture(i.ACID,$event.target.value)" class="form-control" placeholder="Mark" aria-label="Mark" aria-describedby="basic-addon1">
+            </div>
+            <div class="text-danger" *ngIf="NumInput4.touched && !NumInput4.valid">
+              <!-- This displays if the input is empty but required -->
+                <div *ngIf="NumInput4.errors.required">Please enter a mark for the assessment Criteria</div>
+                <!-- This displays if the number is below 0 -->
+                <div *ngIf = "NumInput4.errors.max">The mark cannot be less than 0 </div>
+                <!-- This displays if the number is above 100 -->
+                <div *ngIf = "NumInput4.errors.min">The mark cannot be more than 100 </div>
+            </div>
+          </div>
+</div>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1"> Mark Obtained</span>
+  </div>
+  <input type="number" 
+  id="MarkObatined" 
+  name="MarkObatined" 
+  #NumInput5="ngModel" 
+  required
+  [(ngModel)]="MarkObtained"
+  (change)="validate()" class="form-control" placeholder="Pupil mark" aria-label="%" aria-describedby="basic-addon1">
+</div>
+
+<div class="text-danger" *ngIf="NumInput5.touched && !NumInput5.valid">
+  <!-- This displays if the input is empty but required -->
+    <div *ngIf="NumInput5.errors.required">Please enter a final mark</div>
+    <!-- This displays if the number is below 0 -->
+    <div *ngIf = "NumInput5.errors.max">The mark cannot be less than 0 </div>
+    <!-- This displays if the number is above 100 -->
+    <div *ngIf = "NumInput5.errors.min">The mark cannot be more than 100 </div>
+  
+</div>
+        </div>
+          <div class="modal-footer"style="align-content: center; margin: auto; border:none;">
+            <!--[disabled]="!myForm.form.valid"-->
+              <button data-dismiss="modal"  type="button" data-toggle="modal" data-target="#SuccessModal"  class="btn btn-success"   (click)="SubmitForm()">Save Progress Report</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+           
+          </div>
+        
+          </div>
+        </div>
+        </div>
+      </form>
+     
+         <!--Update CapturePR Modal Criertia -->
+         <form #myForm="ngForm" (ngSubmit)="SubmitForm()" >
+  <div class="modal backdrop fade in overflow-auto" id="UpdatePR" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            
+          <div class="icon-box" style="align-content: center; margin: auto; text-align: center;">
+            <img src="https://img.icons8.com/nolan/64/update-tag.png"/>
+          </div>        
+        <h4 class="modal-title" style="text-align: center;">UPDATE PROGRESS REPORT</h4>
+        <br>
+        <div  class=" row text-danger text-center" *ngIf="isresult == true">
+          <p style="margin:auto;">Sorry There are no reports for this  selection. Please choose different type.</p>
+          </div>
+          <div *ngIf="isresult==false" >
+        <div class="container text-center">
+            <label>{{date | date:'yyyy/MM/dd'}}</label>
+
+            </div>
+            <br>
+          
+       <H3>RESULTS</H3>
+       <div class="row container" *ngFor="let item of currentresults">
+        <br>
+                  <h6>{{item.Category}}</h6>
+                  <br>
+                  <div *ngFor="let i of item.PRR" >
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text text-wrap" for="inputGroupSelect01">{{i.Description}}</label>
+                    </div>
+                    <input type="number" 
+                    id="Mark" 
+                    name="Mark" 
+                    #NumInput4
+                    required
+                    [value]="i.Mark"
+                    (change)="Capture(i.ACID,$event.target.value)" class="form-control" placeholder="Mark" aria-label="Mark" aria-describedby="basic-addon1">
+                  </div>
+                  <div class="text-danger" *ngIf="NumInput4.touched && !NumInput4.valid">
+                    <!-- This displays if the input is empty but required -->
+                      <div *ngIf="NumInput4.errors.required">Please enter a mark for the assessment Criteria</div>
+                      <!-- This displays if the number is below 0 -->
+                      <div *ngIf = "NumInput4.errors.max">The mark cannot be less than 0 </div>
+                      <!-- This displays if the number is above 100 -->
+                      <div *ngIf = "NumInput4.errors.min">The mark cannot be more than 100 </div>
+                  </div>
+                </div>
+      </div>
+                      
+
+         
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"> Mark Obtained</span>
+            </div>
+            <input type="number" 
+            id="MarkObatined" 
+            name="MarkObatined" 
+            #NumInput5Update="ngModel" 
+            required
+            [(ngModel)]="MarkObtained"
+            (change)="Uvalidate()" class="form-control" placeholder="Pupil mark" aria-label="%" aria-describedby="basic-addon1">
+          </div>
+
+          <div class="text-danger" *ngIf="NumInput5Update.touched && !NumInput5Update.valid">
+            <!-- This displays if the input is empty but required -->
+              <div *ngIf="NumInput5Update.errors.required">Please enter a final mark</div>
+              <!-- This displays if the number is below 0 -->
+              <div *ngIf = "NumInput5Update.errors.max">The mark cannot be less than 0 </div>
+              <!-- This displays if the number is above 100 -->
+              <div *ngIf = "NumInput5Update.errors.min">The mark cannot be more than 100 </div>
+            
+          </div>
+        </div>
+        </div>
+
+        <div class="modal-footer"style="align-content: center; margin: auto; border:none;">
+            <button *ngIf="isresult == true" data-dismiss="modal"  (click)="UpdatedInfo()" type="button" data-toggle="modal" data-target="#SuccessModal"  class="btn btn-success"  [disabled]="!myForm.form.valid">Save Progress Report</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+         
+        </div>
+        </div>
+        </div>
+        </div>
+      </form>
+                 <!--Success Modal-->
+   <div class="modal backdrop fade in" id="SuccessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="icon-box modalicon">
+            <img src="https://img.icons8.com/dusk/64/000000/checked.png"/>
+          </div>
+          <br>        
+        <h4 class="modal-title">Successful</h4>
+          <p style="text-align: center;">Progress Report Successfully Saved.</p>
+        </div>
+        <div class="modal-footer"style="border:none;">
+          <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+        </div>
+        </div>
+        </div>
+      </div>
+<!--Select Type-->
+      <div class="modal backdrop fade in" id="ChooseType" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="icon-box modalicon">
+                <img src="https://img.icons8.com/nolan/64/update-tag.png"/>
+              </div>
+              <br>        
+            <h4 class="modal-title">Progress Report Type</h4>
+              <p style="text-align: center;">Select a progress report type to update</p>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Type</span>
+                </div>
+                <select  class="form-control"  id="SelectList"
+                required
+                name="SelectList"
+                [(ngModel)]= "selectListValue"
+                #selectList = "ngModel">
+                    <option hidden >Type</option>
+                    <option *ngFor="let item of types" value={{item.TypeID}}>{{item.Type}}</option>
+
+                                    </select>          
+                 </div>  
+                 <div *ngIf="selectList.touched && !selectList.valid" class="text-danger">
+                  Please select a class
+                </div> 
+            </div>  
+            <div class="modal-footer"style="border:none;">
+              
+                <br/>
+              <button (click)="Update()" data-toggle="modal"  data-target="#UpdatePR" type="button" class="btn btn-info" data-dismiss="modal" [disabled]="!selectList.valid">Ok</button>
+              
+            </div>           
+      </div>
+            
+            </div>
+            </div>
+  
+  

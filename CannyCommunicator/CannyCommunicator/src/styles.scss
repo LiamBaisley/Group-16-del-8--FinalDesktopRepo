@@ -1,0 +1,90 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import "//use.fontawesome.com/releases/v5.7.0/css/all.css";
+@import 'https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap';
+.indent{
+    margin-left: 2rem;
+}
+
+.logotext{
+    color: black;
+}
+
+h1{
+    text-align: center; 
+    background-color: lightblue;
+}
+tr{
+    text-align: center;
+}
+thead{
+    text-align: center;
+}
+.deletenotice{
+    position: absolute; 
+    right: 0;
+}
+.noticepanel{
+    overflow-y:scroll; 
+    height: 350px; 
+    max-height:500px;
+}
+.notices{
+    position: relative; 
+    min-height: 200px;
+}
+.tableactions{
+    position: relative;
+}
+.tblbutton{
+    padding:0.5cm;
+}
+.modalicon{
+    align-content: center; margin: auto; text-align: center;
+}
+.modal-title{
+    text-align: center;
+}
+.modal-footer{
+    align-content: center; 
+    margin: auto; 
+    border:none;
+}
+.modal-header{
+    text-align: center;
+}
+#SendMess{
+    margin: auto;  position: relative;font-size: 30px; border: solid; padding: 20px;
+}
+
+#CardTitle{
+    color: cornflowerblue; text-align: center;
+}
+#btnYear{
+ text-align: center;
+ padding: 0.2cm;
+ display: inline;
+
+}
+#PRCollapse{
+    color: lightskyblue;
+}
+.carousel img {
+    max-height: 400px;
+    margin: 0 auto;
+}
+#homeslides{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(https://media.phillyvoice.com/media/images/Supernumery_Rainbow.2e16d0ba.fill-735x490.png);
+    height: 400px;
+}
+@media only screen and (max-width: 970px){
+    .imageclassname{
+       display: none;
+}
+.scroll{
+    overflow-y: scroll;
+}
+}
